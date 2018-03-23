@@ -1,0 +1,8 @@
+bibentry(bibtype = "incollection",
+         title = "Statistical and multivariate analysis of MS-based plant metabolomics data.",
+         author = c(person("Carsten", "Jaeger"),
+                    person("Jan", "Lisec")),
+         editor = person("Carla", "António"),
+         booktitle = "Plant Metabolomics, Methods and protocols.",
+         publisher = "Springer, New York",
+         year = 2018)
