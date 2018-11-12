@@ -4,8 +4,8 @@
 \alias{RestrictedPCA}
 \title{RestrictedPCA.}
 \usage{
-RestrictedPCA(dat = NULL, sam = NULL, use.sam = NULL, group.col = NULL,
-  text.col = NULL, fmod = NULL, sign.col = NULL,
+RestrictedPCA(dat = NULL, sam = NULL, use.sam = NULL,
+  group.col = NULL, text.col = NULL, fmod = NULL, sign.col = NULL,
   p.adjust.method = "none", P = 0.01, pcaMethods.scale = "pareto",
   n.metab.min = 20, ...)
 }

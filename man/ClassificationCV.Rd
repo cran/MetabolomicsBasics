@@ -5,9 +5,8 @@
 \title{ClassificationCV.}
 \usage{
 ClassificationCV(d = NULL, g = NULL, n = 1, k = 1, rand = F,
-  method = c("svm", "C50", "rpart")[1], svm.kernel = "linear",
-  svm.type = "C-classification", tree.method = "class",
-  rpart.control = list())
+  method = c("svm", "C50", "rpart", "ropls")[1],
+  method.control = list(), silent = FALSE)
 }
 \arguments{
 \item{d}{Data matrix or data.frame with named rows (samples) and columns (traits).}
@@ -20,46 +19,22 @@ ClassificationCV(d = NULL, g = NULL, n = 1, k = 1, rand = F,
 
 \item{rand}{Randomize Group-vector (and apply according n and k to this randomization).}
 
-\item{method}{Currently \code{svm} and decison tree methods \code{C50} and \code{rpart} are supported.}
+\item{method}{Currently \code{svm}, \code{ropls} and decison tree methods \code{C50} and \code{rpart} are supported.}
 
-\item{svm.kernel}{Pass through options for svm method.}
+\item{method.control}{A list of parameters, forwarded to the respective classification function.}
 
-\item{svm.type}{Pass through options for svm method.}
-
-\item{tree.method}{Pass through options for tree method.}
-
-\item{rpart.control}{Forwarded to rpart.}
+\item{silent}{Logical. Set TRUE to supress progress bar and warnings.}
 }
 \value{
-Nothing.
+A list of classification results which can be analyzed for accuracy, missclassified samples etc.
 }
 \description{
 \code{ClassificationCV} will perform a classification using SVM's and/or Decision Trees including cross validation on a data set according to a provided grouping vector.
 }
 \details{
-not yet
+This function allows to demonstrate the functionality of different classification tools with respect to building classfier for metabolomics data.
 }
 \examples{
-# classify american and european parental lines
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
-gr <- sam$Origin
-
-# establish a basic rpart model and render a fancy plot including the accuracy
-class_res <- ClassificationCV(d=raw, g=gr, method="rpart")
-rattle::fancyRpartPlot(class_res, main="Optimal rpart decision tree")
-acc_opt <- caret::confusionMatrix(predict(class_res, newdata=data.frame(raw), type="class"), gr)
-mtext(paste("Accuracy =", round(acc_opt[["overall"]]["Accuracy"],2)), adj = 0)
-
-# now repeat the analysis in a robust fashion (10-fold cross validation in 100 permutations)
-\donttest{
-class_res <- ClassificationCV(g=gr, d=raw, n=100, k=10, method="rpart")
-acc_crossval <- sapply(class_res, function(x) {
- round(x$ConfusionMatrix[["overall"]]["Accuracy"],2)
-})
-hist(acc_crossval, sub=paste("Accuracy optimal =",round(acc_optacc_opt[["overall"]]["Accuracy"],2)))
-}
-
 # check the examples in \\code{\\link{ClassificationWrapper}} for automatic multifold analysis
 
 }

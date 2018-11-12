@@ -29,9 +29,16 @@
 #'MBoxplot(pk="y", raw=x, sam=x, met=data.frame("Peak"="y", "Test"=I("info")),
 #'         g=interaction(x$GT, x$TP), an="Test", plot_n_samples=TRUE, txt=rownames(x))
 #'
-#'@export
+#'@importFrom graphics par
+#'@importFrom graphics boxplot
+#'@importFrom graphics axis
+#'@importFrom graphics text
+#'@importFrom graphics mtext
+#'@importFrom graphics strwidth
+#'@importFrom stats median
+#'@importFrom grDevices rgb
 #'
-#'@import grDevices
+#'@export
 
 MBoxplot <- function(pk=pk, raw=NULL, sam=NULL, met=NULL, g=NULL, flt=NULL, an=NULL, plot_sample_n=FALSE, txt=NULL, cex.txt=0.5, plot_rel_axis=NULL, ...) {
 	# check parameters
@@ -66,28 +73,28 @@ MBoxplot <- function(pk=pk, raw=NULL, sam=NULL, met=NULL, g=NULL, flt=NULL, an=N
     }
 	}
   if (!is.null(plot_rel_axis)) {
-    boxplot(tmp.y ~ tmp.x, las=1, col=tmp.col, xaxt="n", log="y", ...)
+    graphics::boxplot(tmp.y ~ tmp.x, las=1, col=tmp.col, xaxt="n", log="y", ...)
   } else {
-	  boxplot(tmp.y ~ tmp.x, las=1, col=tmp.col, xaxt="n", ...)
+	  graphics::boxplot(tmp.y ~ tmp.x, las=1, col=tmp.col, xaxt="n", ...)
   }
   if (tmp.l==0) {
-    axis(side=1, at=1:length(levels(tmp.x)), labels=levels(tmp.x))
+    graphics::axis(side=1, at=1:length(levels(tmp.x)), labels=levels(tmp.x))
   } else {
 	  for (i in 1:(tmp.l+1)) {
-			axis(side=1, at=1:length(levels(tmp.x)), labels=sapply(levels(tmp.x), function(x) {strsplit(x, "_")[[1]][i]}), line=i-1, tick=ifelse(i>1,F,T))
+			graphics::axis(side=1, at=1:length(levels(tmp.x)), labels=sapply(levels(tmp.x), function(x) {strsplit(x, "_")[[1]][i]}), line=i-1, tick=ifelse(i>1,F,T))
 		}
   }
   if (plot_sample_n) {
-    mtext(text=table(tmp.x[is.finite(tmp.y)]), side=1, at=1:length(levels(tmp.x)), line=-1, cex=cex.txt)
+    graphics::mtext(text=table(tmp.x[is.finite(tmp.y)]), side=1, at=1:length(levels(tmp.x)), line=-1, cex=cex.txt)
   }
 	if (!is.null(txt)) {
-	  text(x=jitter(as.numeric(tmp.x)), y=tmp.y, labels=txt, cex=cex.txt, col="lightblue")
+	  graphics::text(x=jitter(as.numeric(tmp.x)), y=tmp.y, labels=txt, cex=cex.txt, col="lightblue")
 	}
 	if (length(an)>=1) {
 		for (i in 1:length(an)) {
       txt <- met[pk,an[i]]
       txt <- ifelse((par("fin")[1]-0.4)<strwidth(txt,"inch"), paste(substr(txt,1,floor(nchar(txt)*((par("fin")[1]-0.4)/strwidth(txt,"inch")))),"..."), txt)
-      mtext(side=3, line=length(an)-i, text=txt, adj=1)
+      graphics::mtext(side=3, line=length(an)-i, text=txt, adj=1)
 		}
 	}
 	invisible(NULL)

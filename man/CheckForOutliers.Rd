@@ -4,8 +4,8 @@
 \alias{CheckForOutliers}
 \title{CheckForOutliers.}
 \usage{
-CheckForOutliers(x = NULL, group = NULL, n_sd = 3, method = c("idx",
-  "logical", "dist"))
+CheckForOutliers(x = NULL, group = NULL, n_sd = 3,
+  method = c("idx", "logical", "dist"))
 }
 \arguments{
 \item{x}{Numeric vector.}

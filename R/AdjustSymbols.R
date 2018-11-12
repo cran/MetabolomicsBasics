@@ -31,7 +31,7 @@
 #'
 #'@export
 #'
-#'@import grDevices
+#'@importFrom grDevices colors
 
 AdjustSymbols <- function(cols=NULL, pchs=NULL, colorset=NULL, symbolset=NULL) {
   # specify colors

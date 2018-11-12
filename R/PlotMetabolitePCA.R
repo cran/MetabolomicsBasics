@@ -33,11 +33,11 @@
 #'sam[,c("cols","pchs")] <- AdjustSymbols(cols=sam$Group, pchs=sam$Group)
 #'PlotMetabolitePCA(pca_res=pca_res, sam=sam, g=sam$Group)
 #'
-#'@export
-#'
 #'@importFrom graphics title
 #'@importFrom graphics mtext
+#'@importFrom grDevices grey
 #'
+#'@export
 
 PlotMetabolitePCA <- function(pca_res=NULL, sam=NULL, g=NULL, medsd=FALSE, text.col="ID", legend.x="bottomleft", comm=NULL) {
 # check if grouping variable exists

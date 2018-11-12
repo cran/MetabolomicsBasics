@@ -37,13 +37,17 @@
 #'RemoveFactorsByANOVA(y=dat[,"m1"], sam=sam, fmod=fmod, kmod=kmod, output="anova_y")
 #'RemoveFactorsByANOVA(y=dat[,"m1"], sam=sam, fmod=fmod, kmod=kmod, output="anova_y_norm")
 #'
-#'@export
-#'
 #'@importFrom utils flush.console
 #'@importFrom stats residuals
 #'@importFrom stats coef
 #'@importFrom stats model.matrix
+#'@importFrom stats as.formula
+#'@importFrom stats anova
+#'@importFrom stats lm
+#'@importFrom graphics par
 #'
+#'@export
+
 RemoveFactorsByANOVA <- function(y=NULL, sam=NULL, fmod=NULL, kmod=NULL, output=c("y_norm","y_lm","anova_y","anova_y_norm","boxplot")[1], remove_outliers=0) {
   # Helper function
   print_info <- function(x, labove=1, lbelow=2, pdate=TRUE) {
@@ -128,13 +132,13 @@ RemoveFactorsByANOVA <- function(y=NULL, sam=NULL, fmod=NULL, kmod=NULL, output=
       yn[fi] <- yn[fi] + (mean(ydf[fi,j]) - mean(yn[fi]))
     }
     if (output=="y_lm") print(y.lm)
-    if (output=="anova_y") print(anova(y.lm))
+    if (output=="anova_y") print(stats::anova(y.lm))
     if (output=="anova_y_norm") {
       tdf <- data.frame(y=yn, sam[,facs])
-      print(anova(lm(fmod, data=tdf)))
+      print(stats::anova(lm(fmod, data=tdf)))
     }
     if (output=="boxplot") {
-      par(mfrow=c(1,2))
+      graphics::par(mfrow=c(1,2))
       ylm <- range(c(ydf[,j],yn),na.rm=T)
       ylb <- colnames(ydf)[j]
       if (is.null(keep)) {

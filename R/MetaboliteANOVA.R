@@ -25,13 +25,15 @@
 #'# compare P-values for one factor determined in both models
 #'hist(log10(m2[,"GT"])-log10(m1[,"GT"]), main="")
 #'
-#'@import plyr
-#'@import stats
+#'@importFrom plyr ldply
+#'@importFrom stats p.adjust
+#'@importFrom stats anova
+#'@importFrom stats lm
+#'@importFrom stats rnorm
 #'
 #'@export
 #'
 MetaboliteANOVA <- function(dat = NULL, sam = NULL, model = NULL, method="none", silent=FALSE) {
-  if (method[1] %in% p.adjust.methods) method <- method[1] else method <- NULL
   # extract factors from model
   facs <- strsplit(model, "[+*: ]")[[1]]; facs <- facs[!(facs %in% "")]
   # convert model into standard R formula object
@@ -54,7 +56,7 @@ MetaboliteANOVA <- function(dat = NULL, sam = NULL, model = NULL, method="none",
   # evaluate which are the true factors in the model (not numeric) !! 1+ is necessary because
   true_fac_cols <- 1 + which(sapply(facs,function(i){is.factor(sam[,i])}))
   # evaluate total number/names of terms from model (including interactions)
-  fac_names <- rownames(anova(lm(fmod,data=data.frame("y"=rnorm(nrow(mdf)), mdf))))
+  fac_names <- rownames(stats::anova(stats::lm(fmod,data=data.frame("y"=stats::rnorm(nrow(mdf)), mdf))))
   fac_names <- fac_names[-length(fac_names)]
   # calculate ANOVA P-values consecutively for all columns of dat
   out <- plyr::ldply(1:ncol(ydf), function(j) {

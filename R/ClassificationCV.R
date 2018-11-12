@@ -4,138 +4,165 @@
 #'\code{ClassificationCV} will perform a classification using SVM's and/or Decision Trees including cross validation on a data set according to a provided grouping vector.
 #'
 #'@details
-#'not yet
+#'This function allows to demonstrate the functionality of different classification tools with respect to building classfier for metabolomics data.
 #'
 #'@param d Data matrix or data.frame with named rows (samples) and columns (traits).
 #'@param g Group-vector, factor.
 #'@param n Replicates of classifications.
 #'@param k Number of folds per replicate.
 #'@param rand Randomize Group-vector (and apply according n and k to this randomization).
-#'@param method Currently \code{svm} and decison tree methods \code{C50} and \code{rpart} are supported.
-#'@param svm.type Pass through options for svm method.
-#'@param svm.kernel Pass through options for svm method.
-#'@param tree.method Pass through options for tree method.
-#'@param rpart.control Forwarded to rpart.
+#'@param method Currently \code{svm}, \code{ropls} and decison tree methods \code{C50} and \code{rpart} are supported.
+#'@param method.control A list of parameters, forwarded to the respective classification function.
+#'@param silent Logical. Set TRUE to supress progress bar and warnings.
 #'
 #'@return
-#'Nothing.
+#'A list of classification results which can be analyzed for accuracy, missclassified samples etc.
 #'
 #'@examples
-#'# classify american and european parental lines
-#'utils::data(raw, package = "MetabolomicsBasics")
-#'utils::data(sam, package = "MetabolomicsBasics")
-#'gr <- sam$Origin
-#'
-#'# establish a basic rpart model and render a fancy plot including the accuracy
-#'class_res <- ClassificationCV(d=raw, g=gr, method="rpart")
-#'rattle::fancyRpartPlot(class_res, main="Optimal rpart decision tree")
-#'acc_opt <- caret::confusionMatrix(predict(class_res, newdata=data.frame(raw), type="class"), gr)
-#'mtext(paste("Accuracy =", round(acc_opt[["overall"]]["Accuracy"],2)), adj = 0)
-#'
-#'# now repeat the analysis in a robust fashion (10-fold cross validation in 100 permutations)
-#'\donttest{
-#'class_res <- ClassificationCV(g=gr, d=raw, n=100, k=10, method="rpart")
-#'acc_crossval <- sapply(class_res, function(x) {
-#'  round(x$ConfusionMatrix[["overall"]]["Accuracy"],2)
-#'})
-#'hist(acc_crossval, sub=paste("Accuracy optimal =",round(acc_optacc_opt[["overall"]]["Accuracy"],2)))
-#'}
-#'
 #'# check the examples in \code{\link{ClassificationWrapper}} for automatic multifold analysis
 #'
-#'@export
-#'
-#'@import C50
-#'@import e1071
-#'@import rpart
-#'@import caret
-#'
+#'@importFrom e1071 svm
+#'@importFrom rpart rpart
+#'@importFrom caret createMultiFolds
+#'@importFrom caret confusionMatrix
+#'@importFrom C50 C5.0
+#'@importFrom C50 C5imp
+#'@importFrom rlang call2
+#'@importFrom rlang splice
 #'@importFrom utils setTxtProgressBar
 #'@importFrom utils txtProgressBar
 #'@importFrom stats runif
 #'@importFrom stats predict
+#'@importFrom ropls opls
+#'@importFrom stats as.formula
+#'
+#'@export
 
-ClassificationCV <- function(d=NULL, g=NULL, n=1, k=1, rand=F, method=c("svm","C50","rpart")[1], svm.kernel="linear", svm.type="C-classification", tree.method="class", rpart.control=list()) {
+ClassificationCV <- function(d=NULL, g=NULL, n=1, k=1, rand=F, method=c("svm","C50","rpart","ropls")[1], method.control=list(), silent=FALSE) {
   # warn and substitute in case of missing values
   if (method %in% c("C50","svm") && !all(is.finite(d))) {
     warning("Missing values found. Replace using NIPALS algorithm.")
     d <- ReplaceMissingValues(x=d)
   }
-  if (!is.factor(g)) { g <- as.factor(g); warning("Converting 'g' to factor.")}
+  # without CV (returning only the classification model for the observed data (or a single random set))
+  if (k==1 && n>1) {
+    if (!silent) warning("...returning classification-model only as replications (n>1) are not meaningfull without crossvalidation (k=1).")
+    n <- 1
+  }
   # CV-fold must be <= number of replicates of smallest group
   stopifnot(1 <= min(table(g))/k)
   stopifnot(!is.null(colnames(d)))
   stopifnot(!is.null(rownames(d)))
-  set.seed(n*k)
-  # randomize group vector; !! if you want to do real permutations than use an outer loop and k=x n=1 within this function
-  if (rand) g <- sample(factor(g))
-  # sample balanced training sets in k-folds
+  # randomize group vector; !! if you want to do real permutations than use an outer loop and k=x, n=1 and rand=seed within this function
+  if (is.numeric(rand)) {
+    local.seed <- rand
+    rand <- TRUE
+  } else {
+    local.seed <- n*k
+  }
+  if (rand) {
+    set.seed(local.seed)
+    g <- sample(factor(g))
+  }
+  # ensure that g is factor
+  if (!is.factor(g)) {
+    g <- as.factor(g)
+    if (!silent) warning("Converting 'g' to factor.")
+  }
+  # ensure that d is data.frame
+  d <- as.data.frame(d)
+  # prepare function call
+  #method.control <- list()
+  if (method=="svm") {
+    svm.control <- list("kernel"="linear","type"="C-classification","cost"=1)
+    for (arg in names(svm.control)) if (!arg %in% names(method.control)) method.control[[arg]] <- svm.control[[arg]]
+    fnc <- rlang::call2(e1071::svm, rlang::splice(method.control))
+  }
+  if (method=="rpart") {
+    rpart.control <- list("method"="class")
+    for (arg in names(rpart.control)) if (!arg %in% names(method.control)) method.control[[arg]] <- rpart.control[[arg]]
+    fnc <- rlang::call2(rpart::rpart, rlang::splice(method.control))
+  }
+  if (method=="C50") {
+    C50.control <- list("method"="class")
+    for (arg in names(C50.control)) if (!arg %in% names(method.control)) method.control[[arg]] <- C50.control[[arg]]
+    fnc <- rlang::call2(C50::C5.0, rlang::splice(method.control))
+  }
+  if (method=="ropls") {
+    ropls.control <- list("predI"=1,"orthoI"=1, printL=FALSE, plotL=FALSE)
+    for (arg in names(ropls.control)) if (!arg %in% names(method.control)) method.control[[arg]] <- ropls.control[[arg]]
+    fnc <- rlang::call2(ropls::opls, rlang::splice(method.control))
+  }
+  if (method=="rpart") {
+    fnc$formula <- stats::as.formula("Group ~ .")
+    fnc$data <- data.frame("Group"=g, d)
+  } else {
+    fnc$x <- d
+    fnc$y <- g
+  }
   if (k==1) {
-    # without CV (returning only the classification model for the observed data (or a single random set))
-    if (n>1) {
-      warning("...returning classification-model only as replications (n>1) are not meaningfull without crossvalidation (k=1).")
-      n <- 1
-    }
-    if (method=="svm") tmp <- e1071::svm(x=d, y=g, kernel = svm.kernel, type = svm.type)
-    if (method=="C50") tmp <- C50::C5.0(x=d, y=g, method=tree.method)
-    if (method=="rpart") tmp <- rpart::rpart(Group ~ ., data=data.frame("Group"=g, d), method="class")
+    # without CV
+    tmp <- eval(fnc)
   } else {
     # with CV
+    # sample balanced training sets in k-folds
     index <- caret::createMultiFolds(y=g, k=k, times=n)
     # set ProgressBar
-    print(paste("Doing", k, "fold classification with", method, "method using", n, "replications on", ifelse(rand, "randomized", "observed"), "data."))
-    pb <- txtProgressBar(title=paste(n, "replicates"), label="progress...", min=0, max=n)
+    if (!silent) {
+      print(paste("Doing", k, "fold classification with", method, "method using", n, "replications on", ifelse(rand, "randomized", "observed"), "data."))
+      pb <- txtProgressBar(title=paste(n, "replicates"), label="progress...", min=0, max=n)
+    }
     # do n replications of selected classification method and return interesting parameters
     tmp <- lapply(as.list(1:n), function(i) { # over all replications do...
-      setTxtProgressBar(pb, value=i)
+      if (!silent) setTxtProgressBar(pb, value=i)
       pred <- vector("list",length=k)
       imp <- vector("list",length=k)
       misscl <- vector("list",length=k)
       numnodes <- vector("list",length=k)
       for (j in 1:k) { # for all k-folds of this replication 'n' do
         ind <- index[[(i-1)*k+j]]
-        if (method=="svm") {
-          model <- e1071::svm(x=d[ind,], y=g[ind], kernel = svm.kernel, type = svm.type) # svm model
-          pred[[j]] <- predict(model, newdata=d[-ind,]) # prediction
-          misscl[[j]] <- names(pred[[j]])[which(pred[[j]]!=g[-ind])] # missclassification
-        }
-        if (method=="C50") {
-          ## decision tree model/prediction
-          model <- C50::C5.0(x=d[ind,], y=g[ind], method=tree.method) # Tree model
-          # if the model contains only one perfect node C5imp failes
-          if (model$size==1) {
-            pred[[j]] <- NA
-            misscl[[j]] <- NA
-            imp[[j]] <- matrix(NA,dimnames=list("NA","Overall"))
-          } else {
-            #browser()
-            pred[[j]] <- predict(model, newdata=d[-ind,]); names(pred[[j]]) <- rownames(d[-ind,])
-            misscl[[j]] <- names(pred[[j]])[which(pred[[j]]!=g[-ind])] # missclassification
-            imp[[j]] <- C50::C5imp(model)[C50::C5imp(model)$Overall!=0,,drop=F] # importance; nodes from the tree
-          }
-        }
         if (method=="rpart") {
+          fnc$formula <- stats::as.formula("Group ~ .")
+          fnc$data <- data.frame("Group"=g[ind], d[ind,])
+        } else {
+          fnc$x <- d[ind,]
+          fnc$y <- g[ind]
+        }
+        model <- try(eval(fnc))
+        # try to catch some errors which may occur, obtained
+        catch_err <- !class(model) %in% c("opls","svm","rpart","C5.0")
+        catch_err <- catch_err | (class(model)=="C5.0" && model[["size"]]==1)
+        if (catch_err) {
+          pred[[j]] <- NA
+          misscl[[j]] <- NA
+          imp[[j]] <- NA
+        } else {
           #browser()
-          model <- rpart::rpart(Group ~ ., data=data.frame("Group"=g[ind], d[ind,]), method="class", control=rpart.control)
-          pred[[j]] <- predict(model, newdata=data.frame(d[-ind,]), type="class"); names(pred[[j]]) <- rownames(d[-ind,])
+          if (method=="ropls") {
+            pred[[j]] <- ropls::predict(model, newdata=d[-ind,]) # prediction
+          } else {
+            pred[[j]] <- stats::predict(model, newdata=d[-ind,]) # prediction
+          }
+          if (method=="rpart") pred[[j]] <- apply(pred[[j]], 1, function(y) { colnames(pred[[j]])[which.max(y)] })
+          names(pred[[j]]) <- rownames(d[-ind,])
           misscl[[j]] <- names(pred[[j]])[which(pred[[j]]!=g[-ind])] # missclassification
-          imp[[j]] <- model[["variable.importance"]]
-          numnodes[[j]] <- sum(model[["frame"]][,"var"]!="<leaf>")
+          if (class(model)=="svm") imp[[j]] <- model[["variable.importance"]]
+          if (class(model)=="opls") imp[[j]] <- model@"vipVn"
+          if (class(model)=="rpart") numnodes[[j]] <- sum(model[["frame"]][,"var"]!="<leaf>")
+          if (class(model)=="C5.0") imp[[j]] <- rownames(C50::C5imp(model)[C50::C5imp(model)$Overall!=0,,drop=F])
         }
       }
-      pred <- unlist(pred)[rownames(d)] # combine the fold results
+      pred <- factor(unlist(pred)[rownames(d)]) # combine the fold results
       if (any(is.na(pred))) {
         warning("Some decision tree models were of size 1 (no classification possible). Skip calculating confusion matrix and returning NA instead.")
         conf <- list("overall"=NA)
-        #browser()
       } else {
         conf <- caret::confusionMatrix(data=pred, reference=g) # compute confusion matrix for this replicate
       }
-      if (method=="svm") return(list("Missclassified"=unlist(misscl), "ConfusionMatrix"=conf))
-      if (method=="C50") return(list("Missclassified"=unlist(misscl), "ConfusionMatrix"=conf, "Importance"=unlist(sapply(imp,rownames))))
-      if (method=="rpart") return(list("Missclassified"=unlist(misscl), "ConfusionMatrix"=conf, "Importance"=unlist(imp), "NumberOfNodes"=unlist(numnodes)))
+      if (method=="ropls") imp <- sapply(imp, function(x) { x })
+      return(list("Missclassified"=unlist(misscl), "ConfusionMatrix"=conf, "Importance"=unlist(imp), "NumberOfNodes"=unlist(numnodes)))
     })
-    close(pb)
+    if (!silent) close(pb)
   }
   return(tmp)
 }

@@ -4,23 +4,28 @@
 \alias{ClassificationWrapper}
 \title{ClassificationWrapper.}
 \usage{
-ClassificationWrapper(d = NULL, g = NULL, n = 100, k = 5,
-  method = c("C50", "svm", "rpart"), train = NULL, rpart.control = list())
+ClassificationWrapper(d = NULL, g = NULL, n = 100, n_rand = 1,
+  k = 5, method = c("C50", "svm", "rpart", "ropls"), train = NULL,
+  method.control = list(), silent = FALSE)
 }
 \arguments{
 \item{d}{data, matrix or data.frame !! needs row/col-names.}
 
 \item{g}{Group-vector, factor.}
 
-\item{n}{replicates of classifications.}
+\item{n}{replicates of classifications, i.e. number of different split into folds.}
+
+\item{n_rand}{different number of randomizations, see Details.}
 
 \item{k}{Fold cross validation.}
 
-\item{method}{Currently \code{svm} and decison tree methods \code{C50} and \code{rpart} are supported.}
+\item{method}{Currently \code{svm}, \code{ropls} and decison tree methods (\code{C50} and \code{rpart}) are supported.}
 
 \item{train}{Either NULL (random permutations) or an index vector for a training subset out of \code{g}.}
 
-\item{rpart.control}{Forwarded to rpart.}
+\item{method.control}{A list of parameters, forwarded to the selected methods function.}
+
+\item{silent}{Logical. Set TRUE to supress progress bar and warnings.}
 }
 \value{
 Classification results as list.
@@ -29,7 +34,10 @@ Classification results as list.
 \code{ClassificationWrapper} will do classification using SVM's and/or Decision Trees including cross validation.
 }
 \details{
-not yet
+n_rand will influence how permutation testing for robustness is conducted. If n_rand=1 than samples will be permuted
+exactly one time and subjected to n replications (with respect to fold splitting). If n_rand>1, samples will be permuted
+this many times but number of replications will be lowered to limit processing time. A good compromise is to balance
+both, using less replications than for observed data but on several randomizations.
 }
 \examples{
 utils::data(raw, package = "MetabolomicsBasics")
@@ -37,9 +45,7 @@ utils::data(sam, package = "MetabolomicsBasics")
 gr <- sam$Origin
 
 # establish a basic rpart model and render a fancy plot including the accuracy
-class_res <- ClassificationWrapper(d=raw, g=gr, method="rpart", n=10)
-\donttest{
-class_res <- ClassificationWrapper(d=raw, g=gr, method=c("rpart","svm"))
-}
+class_res <- ClassificationWrapper(d=raw, g=gr, method=c("rpart","svm"), n=3, k=3)
+ClassificationHistogram(class_res)
 
 }

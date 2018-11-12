@@ -4,7 +4,8 @@
 \alias{ClassificationHistogram}
 \title{ClassificationWrapper.}
 \usage{
-ClassificationHistogram(out_classific = NULL, breaks = seq(0, 1, 0.05), ...)
+ClassificationHistogram(out_classific = NULL, breaks = seq(0, 1, 0.05),
+  ...)
 }
 \arguments{
 \item{out_classific}{Output of \link{ClassificationWrapper}.}
@@ -23,15 +24,6 @@ Classification results as list.
 not yet
 }
 \examples{
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
-gr <- sam$Origin
-
-# establish a basic rpart model and render a fancy plot including the accuracy
-\donttest{
-class_res <- ClassificationWrapper(d=raw, g=gr, method=c("rpart","svm"))
-ClassificationHistogram(class_res)
-ClassificationHistogram(class_res["svm"], breaks=seq(0,1,0.01))
-}
+# check the examples in \\code{\\link{ClassificationWrapper}}
 
 }

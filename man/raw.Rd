@@ -4,6 +4,10 @@
 \name{raw}
 \alias{raw}
 \title{Metabolomics data set}
+\format{An object of class \code{matrix} with 120 rows and 112 columns.}
+\usage{
+raw
+}
 \description{
 This data set contains log10-transformed raw data of a maize root metabolomics study for in total 112 metabolites in 120 samples.
 }

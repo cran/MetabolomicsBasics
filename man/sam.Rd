@@ -4,6 +4,10 @@
 \name{sam}
 \alias{sam}
 \title{Sample table}
+\format{An object of class \code{data.frame} with 120 rows and 10 columns.}
+\usage{
+sam
+}
 \description{
 This data frame contains the sample definition of 120 samples according to the rows of \link{raw}.
 }

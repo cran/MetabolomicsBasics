@@ -4,6 +4,10 @@
 \name{met}
 \alias{met}
 \title{Metabolite table}
+\format{An object of class \code{data.frame} with 112 rows and 2 columns.}
+\usage{
+met
+}
 \description{
 This data frame contains the metabolite definition of 112 metabolites according to the cols of \link{raw}.
 }

@@ -4,8 +4,8 @@
 \alias{MetaboliteANOVA}
 \title{MetaboliteANOVA}
 \usage{
-MetaboliteANOVA(dat = NULL, sam = NULL, model = NULL, method = "none",
-  silent = FALSE)
+MetaboliteANOVA(dat = NULL, sam = NULL, model = NULL,
+  method = "none", silent = FALSE)
 }
 \arguments{
 \item{dat}{Data  matrix (e.g. of metabolite).}

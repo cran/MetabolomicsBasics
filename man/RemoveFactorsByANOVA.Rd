@@ -4,9 +4,9 @@
 \alias{RemoveFactorsByANOVA}
 \title{RemoveFactorsByANOVA.}
 \usage{
-RemoveFactorsByANOVA(y = NULL, sam = NULL, fmod = NULL, kmod = NULL,
-  output = c("y_norm", "y_lm", "anova_y", "anova_y_norm", "boxplot")[1],
-  remove_outliers = 0)
+RemoveFactorsByANOVA(y = NULL, sam = NULL, fmod = NULL,
+  kmod = NULL, output = c("y_norm", "y_lm", "anova_y", "anova_y_norm",
+  "boxplot")[1], remove_outliers = 0)
 }
 \arguments{
 \item{y}{Data vector (or data matrix) to normalize (numeric + in same order as sam).}
