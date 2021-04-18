@@ -4,8 +4,7 @@
 \alias{AdjustSymbols}
 \title{AdjustSymbols.}
 \usage{
-AdjustSymbols(cols = NULL, pchs = NULL, colorset = NULL,
-  symbolset = NULL)
+AdjustSymbols(cols = NULL, pchs = NULL, colorset = NULL, symbolset = NULL)
 }
 \arguments{
 \item{cols}{Factor (color output) or numeric (greyscale output) vector or NULL (omitted).}

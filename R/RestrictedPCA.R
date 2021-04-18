@@ -55,6 +55,7 @@ RestrictedPCA <- function(dat=NULL, sam=NULL,  use.sam=NULL, group.col=NULL, tex
   sam <- sam[use.sam,][filt$r,,drop=FALSE]
   if (!is.null(text.col) && !is.character(sam[,text.col])) sam[,text.col] <- as.character(sam[,text.col])
   if (!is.null(fmod)) {
+    colnames(dat) <- 1:ncol(dat)
     out <- MetaboliteANOVA(dat = dat, sam = sam, model = fmod)
   } else {
     out <- data.frame("none"=rep(0,ncol(dat)))

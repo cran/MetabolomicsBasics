@@ -4,9 +4,16 @@
 \alias{ClassificationCV}
 \title{ClassificationCV.}
 \usage{
-ClassificationCV(d = NULL, g = NULL, n = 1, k = 1, rand = F,
+ClassificationCV(
+  d = NULL,
+  g = NULL,
+  n = 1,
+  k = 1,
+  rand = F,
   method = c("svm", "C50", "rpart", "ropls")[1],
-  method.control = list(), silent = FALSE)
+  method.control = list(),
+  silent = FALSE
+)
 }
 \arguments{
 \item{d}{Data matrix or data.frame with named rows (samples) and columns (traits).}
@@ -35,6 +42,6 @@ A list of classification results which can be analyzed for accuracy, missclassif
 This function allows to demonstrate the functionality of different classification tools with respect to building classfier for metabolomics data.
 }
 \examples{
-# check the examples in \\code{\\link{ClassificationWrapper}} for automatic multifold analysis
+# check the examples in \code{\link{ClassificationWrapper}} for automatic multifold analysis
 
 }

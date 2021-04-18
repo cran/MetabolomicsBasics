@@ -4,15 +4,21 @@
 \name{sam}
 \alias{sam}
 \title{Sample table}
-\format{An object of class \code{data.frame} with 120 rows and 10 columns.}
+\format{
+An object of class \code{data.frame} with 120 rows and 10 columns.
+}
 \usage{
-sam
+data(sam)
 }
 \description{
 This data frame contains the sample definition of 120 samples according to the rows of \link{raw}.
 }
+\examples{
+data(sam)
+str(sam)
+}
 \references{
-\url{http://dx.doi.org/10.1111/j.1365-313X.2011.04689.x}
+\doi{10.1111/j.1365-313X.2011.04689.x}
 }
 \author{
 Jan Lisec \email{jan.lisec@charite.de}

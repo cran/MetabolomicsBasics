@@ -4,9 +4,15 @@
 \alias{PlotMetabolitePCA}
 \title{PlotMetabolitePCA}
 \usage{
-PlotMetabolitePCA(pca_res = NULL, sam = NULL, g = NULL,
-  medsd = FALSE, text.col = "ID", legend.x = "bottomleft",
-  comm = NULL)
+PlotMetabolitePCA(
+  pca_res = NULL,
+  sam = NULL,
+  g = NULL,
+  medsd = FALSE,
+  text.col = "ID",
+  legend.x = "bottomleft",
+  comm = NULL
+)
 }
 \arguments{
 \item{pca_res}{A pcaRes object from the pcaMethods package.}

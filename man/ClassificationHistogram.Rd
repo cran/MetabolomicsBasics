@@ -4,8 +4,7 @@
 \alias{ClassificationHistogram}
 \title{ClassificationWrapper.}
 \usage{
-ClassificationHistogram(out_classific = NULL, breaks = seq(0, 1, 0.05),
-  ...)
+ClassificationHistogram(out_classific = NULL, breaks = seq(0, 1, 0.05), ...)
 }
 \arguments{
 \item{out_classific}{Output of \link{ClassificationWrapper}.}
@@ -24,6 +23,6 @@ Classification results as list.
 not yet
 }
 \examples{
-# check the examples in \\code{\\link{ClassificationWrapper}}
+# check the examples in \code{\link{ClassificationWrapper}}
 
 }

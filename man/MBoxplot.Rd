@@ -4,9 +4,20 @@
 \alias{MBoxplot}
 \title{MBoxplot}
 \usage{
-MBoxplot(pk = pk, raw = NULL, sam = NULL, met = NULL, g = NULL,
-  flt = NULL, an = NULL, plot_sample_n = FALSE, txt = NULL,
-  cex.txt = 0.5, plot_rel_axis = NULL, ...)
+MBoxplot(
+  pk = pk,
+  raw = NULL,
+  sam = NULL,
+  met = NULL,
+  g = NULL,
+  flt = NULL,
+  an = NULL,
+  plot_sample_n = FALSE,
+  txt = NULL,
+  cex.txt = 0.5,
+  plot_rel_axis = NULL,
+  ...
+)
 }
 \arguments{
 \item{pk}{Colname of raw to plot if \code{pk} is character OR the colnum number if \code{pk} is numeric.}

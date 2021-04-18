@@ -4,8 +4,14 @@
 \alias{PlotPValueHist}
 \title{PlotPValueHist.}
 \usage{
-PlotPValueHist(out = NULL, method = "BH", xl = "ANOVA P-values",
-  yl = "Number of metabolites", frac.col = NULL, ...)
+PlotPValueHist(
+  out = NULL,
+  method = "BH",
+  xl = "ANOVA P-values",
+  yl = "Number of metabolites",
+  frac.col = NULL,
+  ...
+)
 }
 \arguments{
 \item{out}{matrix/data.frame; P-value table from 'MetaboliteANOVA.R' with factors in named columns and trait P-values in rows.}

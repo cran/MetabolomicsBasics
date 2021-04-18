@@ -5,6 +5,7 @@
 #'
 #'@details
 #'The nipals algorithm is used to basically perform a PCA on the sparse matrix. Missing values are imputed based on the major components observed.
+#'Please check also the 'impute.nipals' function from mixOmics -- it should basically give the same functionality since the 04/2021 update.
 #'
 #'@param x Numeric matrix.
 #'@param ncomp Number of components to be used.
@@ -42,21 +43,24 @@
 
 ReplaceMissingValues <- function(x, ncomp=10, silent=FALSE) {
 	if (!silent) cat(paste("\n...replacing missing values in a data matrix of m x n = ", nrow(x), " x ", ncol(x), "(=", prod(dim(x)), ")", sep="")); flush.console()
-	nipals.x <- mixOmics::nipals(x, reconst = TRUE, ncomp = ncomp)
-    id.na <- is.na(x) # only replace the imputation for the missing values
-    n.na <- sum(id.na)
-    i <- ncomp
-	while (n.na > 0 && i>=3) {
-		rec <- nipals.x$t[,1:i] %*% diag(nipals.x$eig[1:i],i,i) %*% t(nipals.x$p[,1:i])
-	   x[id.na] <- rec[id.na]
-		id.na <- x < 0 # check for missing values
-		if (!silent) {
-		  cat(paste("\n...replaced ", n.na-sum(id.na), " missing values using n=", i, " components.", sep=""))
-		  utils::flush.console()
-		}
+  # !![20210416] mixOmics changed the code of nipals removing the parameter 'reconst'
+  # probably because they provide now an 'impute.nipals' function
+  # 	nipals.x <- mixOmics::nipals(x, reconst = TRUE, ncomp = ncomp)
+  nipals.x <- mixOmics::nipals(x, ncomp = ncomp)
+  id.na <- is.na(x) # only replace the imputation for the missing values
+  n.na <- sum(id.na)
+  i <- ncomp
+  while (n.na > 0 && i>=3) {
+    rec <- nipals.x$t[,1:i] %*% diag(nipals.x$eig[1:i],i,i) %*% t(nipals.x$p[,1:i])
+    x[id.na] <- rec[id.na]
+    id.na <- x < 0 # check for missing values
+    if (!silent) {
+      cat(paste("\n...replaced ", n.na-sum(id.na), " missing values using n=", i, " components.", sep=""))
+      utils::flush.console()
+    }
     n.na <- sum(id.na)
     i <- i-1
-	}
+  }
   if (!silent) cat("\n\n")
   return(x)
 }

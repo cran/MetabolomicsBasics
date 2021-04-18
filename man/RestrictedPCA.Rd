@@ -4,10 +4,20 @@
 \alias{RestrictedPCA}
 \title{RestrictedPCA.}
 \usage{
-RestrictedPCA(dat = NULL, sam = NULL, use.sam = NULL,
-  group.col = NULL, text.col = NULL, fmod = NULL, sign.col = NULL,
-  p.adjust.method = "none", P = 0.01, pcaMethods.scale = "pareto",
-  n.metab.min = 20, ...)
+RestrictedPCA(
+  dat = NULL,
+  sam = NULL,
+  use.sam = NULL,
+  group.col = NULL,
+  text.col = NULL,
+  fmod = NULL,
+  sign.col = NULL,
+  p.adjust.method = "none",
+  P = 0.01,
+  pcaMethods.scale = "pareto",
+  n.metab.min = 20,
+  ...
+)
 }
 \arguments{
 \item{dat}{Metabolite matrix (samples x metabolites).}
@@ -55,7 +65,7 @@ RestrictedPCA(dat=raw, sam=sam, group.col="GT")
 RestrictedPCA(dat=raw, sam=sam, group.col="GT", p.adjust.method = "BH", P=10^-10,
              fmod="GT+Batch+Order", sign.col="GT", medsd=T, legend.x=NULL)
 # limit to a subset of samples, switching the ANOVA selection of by setting P=1
-# and adding text (from \\code{sam}) to each data point
+# and adding text (from \code{sam}) to each data point
 RestrictedPCA(dat=raw, sam=sam, use.sam=which(sam$GT\%in\%c("Mo17","B73")), group.col="GT",
              fmod="GT+Batch+Order", P=1, sign.col="GT", legend.x=NULL, text.col="Batch")
 }

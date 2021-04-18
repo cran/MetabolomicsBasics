@@ -4,15 +4,21 @@
 \name{met}
 \alias{met}
 \title{Metabolite table}
-\format{An object of class \code{data.frame} with 112 rows and 2 columns.}
+\format{
+An object of class \code{data.frame} with 112 rows and 2 columns.
+}
 \usage{
-met
+data(met)
 }
 \description{
 This data frame contains the metabolite definition of 112 metabolites according to the cols of \link{raw}.
 }
+\examples{
+data(met)
+str(met)
+}
 \references{
-\url{http://dx.doi.org/10.1111/j.1365-313X.2011.04689.x}
+\doi{10.1111/j.1365-313X.2011.04689.x}
 }
 \author{
 Jan Lisec \email{jan.lisec@charite.de}

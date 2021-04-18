@@ -4,9 +4,17 @@
 \alias{ClassificationWrapper}
 \title{ClassificationWrapper.}
 \usage{
-ClassificationWrapper(d = NULL, g = NULL, n = 100, n_rand = 1,
-  k = 5, method = c("C50", "svm", "rpart", "ropls"), train = NULL,
-  method.control = list(), silent = FALSE)
+ClassificationWrapper(
+  d = NULL,
+  g = NULL,
+  n = 100,
+  n_rand = 1,
+  k = 5,
+  method = c("C50", "svm", "rpart", "ropls"),
+  train = NULL,
+  method.control = list(),
+  silent = FALSE
+)
 }
 \arguments{
 \item{d}{data, matrix or data.frame !! needs row/col-names.}
