@@ -26,22 +26,24 @@ ClassificationCV(
 
 \item{rand}{Randomize Group-vector (and apply according n and k to this randomization).}
 
-\item{method}{Currently \code{svm}, \code{ropls} and decison tree methods \code{C50} and \code{rpart} are supported.}
+\item{method}{Currently \code{svm}, \code{ropls} and decision tree methods \code{C50} and \code{rpart} are supported.}
 
 \item{method.control}{A list of parameters, forwarded to the respective classification function.}
 
-\item{silent}{Logical. Set TRUE to supress progress bar and warnings.}
+\item{silent}{Logical. Set TRUE to suppress progress bar and warnings.}
 }
 \value{
-A list of classification results which can be analyzed for accuracy, missclassified samples etc.
+A list of classification results which can be analyzed for accuracy,
+  miss-classified samples and more.
 }
 \description{
-\code{ClassificationCV} will perform a classification using SVM's and/or Decision Trees including cross validation on a data set according to a provided grouping vector.
+\code{ClassificationCV} will perform a classification using SVM's
+  and/or Decision Trees including cross validation on a data set according to
+  a provided grouping vector.
 }
 \details{
-This function allows to demonstrate the functionality of different classification tools with respect to building classfier for metabolomics data.
-}
-\examples{
-# check the examples in \code{\link{ClassificationWrapper}} for automatic multifold analysis
-
+This function allows to demonstrate the functionality of different
+  classification tools with respect to building classifiers for metabolomics data.
+  Check the examples in \code{\link{ClassificationWrapper}} for automatic
+  multi-fold analysis.
 }

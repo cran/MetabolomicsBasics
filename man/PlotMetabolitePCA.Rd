@@ -2,7 +2,7 @@
 % Please edit documentation in R/PlotMetabolitePCA.R
 \name{PlotMetabolitePCA}
 \alias{PlotMetabolitePCA}
-\title{PlotMetabolitePCA}
+\title{PlotMetabolitePCA.}
 \usage{
 PlotMetabolitePCA(
   pca_res = NULL,
@@ -33,10 +33,11 @@ PlotMetabolitePCA(
 A vector fo similar length as input but with various name components removed.
 }
 \description{
-\code{PlotMetabolitePCA} will show PC1 and PC2 of a pcaMethods object and generate a flexible plot.
+\code{PlotMetabolitePCA} will show PC1 and PC2 of a pcaMethods
+  object and generate a flexible plot.
 }
 \details{
-not yet
+See examples.
 }
 \examples{
 # load raw data and sample description
@@ -44,14 +45,16 @@ utils::data(raw, package = "MetabolomicsBasics")
 utils::data(sam, package = "MetabolomicsBasics")
 
 # calculate pca Result using pcaMethods and plot
-pca_res <- pcaMethods::pca(raw, method="rnipals", scale=c("none", "pareto", "uv")[2])
-PlotMetabolitePCA(pca_res=pca_res, sam=sam, g=sam$GT)
+pca_res <- pcaMethods::pca(raw, method = "rnipals", scale = c("none", "pareto", "uv")[2])
+PlotMetabolitePCA(pca_res = pca_res, sam = sam, g = sam$GT)
 # plot without legend and Group means instead
-PlotMetabolitePCA(pca_res=pca_res, sam=sam, g=sam$GT, legend.x=NULL, text.col=NULL,
-                 medsd=TRUE, comm=LETTERS[1:4])
+PlotMetabolitePCA(
+  pca_res = pca_res, sam = sam, g = sam$GT, legend.x = NULL, text.col = NULL,
+  medsd = TRUE, comm = LETTERS[1:4]
+)
 
-sam$Group <- interaction(sam$Origin, sam$Class, sep="_")
-sam[,c("cols","pchs")] <- AdjustSymbols(cols=sam$Group, pchs=sam$Group)
-PlotMetabolitePCA(pca_res=pca_res, sam=sam, g=sam$Group)
-
+# readjust symbols before plotting
+sam$Group <- interaction(sam$Origin, sam$Class, sep = "_")
+sam[, c("cols", "pchs")] <- AdjustSymbols(cols = sam$Group, pchs = sam$Group)
+PlotMetabolitePCA(pca_res = pca_res, sam = sam, g = sam$Group)
 }

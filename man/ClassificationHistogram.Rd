@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClassificationHistogram.R
 \name{ClassificationHistogram}
 \alias{ClassificationHistogram}
-\title{ClassificationWrapper.}
+\title{ClassificationHistogram.}
 \usage{
 ClassificationHistogram(out_classific = NULL, breaks = seq(0, 1, 0.05), ...)
 }
@@ -14,15 +14,11 @@ ClassificationHistogram(out_classific = NULL, breaks = seq(0, 1, 0.05), ...)
 \item{...}{Passed on to \code{par}. Useful to adjust \code{cex}.}
 }
 \value{
-Classification results as list.
+Returns NULL invisibly.
 }
 \description{
-\code{ClassificationWrapper} will do classification using SVM's and/or Decision Trees including cross validation.
+\code{ClassificationHistogram} will plot the results of \link{ClassificationWrapper}.
 }
 \details{
-not yet
-}
-\examples{
-# check the examples in \code{\link{ClassificationWrapper}}
-
+No further details.
 }

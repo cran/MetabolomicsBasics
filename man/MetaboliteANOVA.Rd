@@ -2,7 +2,7 @@
 % Please edit documentation in R/MetaboliteANOVA.R
 \name{MetaboliteANOVA}
 \alias{MetaboliteANOVA}
-\title{MetaboliteANOVA}
+\title{MetaboliteANOVA.}
 \usage{
 MetaboliteANOVA(
   dat = NULL,
@@ -27,19 +27,22 @@ MetaboliteANOVA(
 A named matrix of P-values (rows=metabolites/traits; cols=ANOVA factors).
 }
 \description{
-\code{MetaboliteANOVA} will perform an ANOVA on columns of a data matrix according to a specified model.
+\code{MetaboliteANOVA} will perform an ANOVA on columns
+  of a data matrix according to a specified model.
 }
 \details{
-Function is a wrapper for \code{lm} including some sanity checks. It will accept a data matrix (traits in columns), sample information (data.frame) and a potential model as input, compute an ANOVA per column and return the respective P-values in a named matrix for further plotting or export.
+The function is a wrapper for \code{lm} including some sanity checks.
+  It will accept a data matrix (traits in columns), sample information (data.frame)
+  and a potential model as input, compute an ANOVA per column and return
+  the respective P-values in a named matrix for further plotting or export.
 }
 \examples{
 # load raw data and sample description
 utils::data(raw, package = "MetabolomicsBasics")
 utils::data(sam, package = "MetabolomicsBasics")
 # compute P-values according to specified ANOVA model (simple and complex)
-head(m1 <- MetaboliteANOVA(dat=raw, sam=sam, model="GT"))
-head(m2 <- MetaboliteANOVA(dat=raw, sam=sam, model="GT+Batch+Order+MP"))
+head(m1 <- MetaboliteANOVA(dat = raw, sam = sam, model = "GT"))
+head(m2 <- MetaboliteANOVA(dat = raw, sam = sam, model = "GT+Batch+Order+MP"))
 # compare P-values for one factor determined in both models
-hist(log10(m2[,"GT"])-log10(m1[,"GT"]), main="")
-
+hist(log10(m2[, "GT"]) - log10(m1[, "GT"]), main = "")
 }

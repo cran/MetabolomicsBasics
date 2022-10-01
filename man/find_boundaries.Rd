@@ -33,12 +33,12 @@ Numeric vector of length=2 specifying the start and end index of the peak.
 \code{find_boundaries} will determine peak boundaries within a BPC or mass trace.
 }
 \details{
-It is yet another peak finder or, more precisely, it is a function to identify two RT values which flank a intensity maximum which is required if one would like to integrate the peak area.
+It is yet another peak finder or, more precisely, it is a function
+  to identify two RT values which flank a intensity maximum which is required
+  if one would like to integrate the peak area.
 }
 \examples{
-int <- sin(seq(-0.75*pi,1.75*pi,by=0.1))
+int <- sin(seq(-0.75 * pi, 1.75 * pi, by = 0.1))
 plot(int)
-abline(v=find_boundaries(int=int))
-abline(v=find_boundaries(int=int, p=1))
-
+abline(v = find_boundaries(int = int))
 }

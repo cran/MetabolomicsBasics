@@ -27,7 +27,7 @@ ClassificationWrapper(
 
 \item{k}{Fold cross validation.}
 
-\item{method}{Currently \code{svm}, \code{ropls} and decison tree methods (\code{C50} and \code{rpart}) are supported.}
+\item{method}{Currently \code{svm}, \code{ropls} and decision tree methods (\code{C50} and \code{rpart}) are supported.}
 
 \item{train}{Either NULL (random permutations) or an index vector for a training subset out of \code{g}.}
 
@@ -36,24 +36,25 @@ ClassificationWrapper(
 \item{silent}{Logical. Set TRUE to supress progress bar and warnings.}
 }
 \value{
-Classification results as list.
+#' Classification results as list.
 }
 \description{
-\code{ClassificationWrapper} will do classification using SVM's and/or Decision Trees including cross validation.
+\code{ClassificationWrapper} will do classification using SVM's and/or
+  Decision Trees including cross validation.
 }
 \details{
-n_rand will influence how permutation testing for robustness is conducted. If n_rand=1 than samples will be permuted
-exactly one time and subjected to n replications (with respect to fold splitting). If n_rand>1, samples will be permuted
-this many times but number of replications will be lowered to limit processing time. A good compromise is to balance
-both, using less replications than for observed data but on several randomizations.
+Parameter `n_rand` will influence how permutation testing for robustness
+  is conducted. If n_rand=1 than samples will be permuted exactly one time and
+  subjected to n replications (with respect to fold splitting). If n_rand>1, samples
+  will be permuted this many times but number of replications will be lowered to limit
+  processing time. A good compromise is to balance both, using less replications than
+  for observed data but on several randomizations.
 }
 \examples{
 utils::data(raw, package = "MetabolomicsBasics")
 utils::data(sam, package = "MetabolomicsBasics")
 gr <- sam$Origin
-
 # establish a basic rpart model and render a fancy plot including the accuracy
-class_res <- ClassificationWrapper(d=raw, g=gr, method=c("rpart","svm"), n=3, k=3)
+class_res <- ClassificationWrapper(d = raw, g = gr, method = c("rpart", "svm"), n = 3, k = 3)
 ClassificationHistogram(class_res)
-
 }

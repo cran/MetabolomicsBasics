@@ -18,9 +18,9 @@ data(sam)
 str(sam)
 }
 \references{
-\doi{10.1111/j.1365-313X.2011.04689.x}
+\url{https://onlinelibrary.wiley.com/doi/10.1111/j.1365-313X.2011.04689.x}
 }
 \author{
-Jan Lisec \email{jan.lisec@charite.de}
+Jan Lisec \email{jan.lisec@bam.de}
 }
 \keyword{data}

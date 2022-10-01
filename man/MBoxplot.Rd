@@ -2,7 +2,7 @@
 % Please edit documentation in R/MBoxplot.R
 \name{MBoxplot}
 \alias{MBoxplot}
-\title{MBoxplot}
+\title{MBoxplot.}
 \usage{
 MBoxplot(
   pk = pk,
@@ -48,16 +48,21 @@ MBoxplot(
 Nothing. Will produce a plot (or file if specified).
 }
 \description{
-\code{MBoxplot} will generate an annotated boxplot.
-A unifying function for MS-data Boxplots based on \'raw\' and \'sam\'.
+\code{MBoxplot} will generate an annotated boxplot. A unifying
+  function for MS-data Boxplots based on \'raw\' and \'sam\'.
 }
 \details{
-not yet
+Usually metabolomics experiments are conducted on multiple replicates
+  of a sample group. Boxplots allow to quickly access potential differences
+  between measurement values of several groups. \code{MBoxplot} can be nicely
+  used to generate QC plots for all metabolites prior and after normalization,
+  in abolute or relative scale and sorted according to significance.
 }
 \examples{
-x <- data.frame("y"=runif(36), "GT"=gl(3,12), "TP"=factor(rep(rep(1:3,each=4),3)))
-x <- cbind(x, AdjustSymbols(cols=x$GT, pchs=x$TP))
-MBoxplot(pk="y", raw=x, sam=x, met=data.frame("Peak"="y", "Test"=I("info")),
-        g=interaction(x$GT, x$TP), an="Test", plot_n_samples=TRUE, txt=rownames(x))
-
+x <- data.frame("y" = runif(36), "GT" = gl(3, 12), "TP" = factor(rep(rep(1:3, each = 4), 3)))
+x <- cbind(x, AdjustSymbols(cols = x$GT, pchs = x$TP))
+MBoxplot(
+  pk = "y", raw = x, sam = x, met = data.frame("Peak" = "y", "Test" = I("info")),
+  g = interaction(x$GT, x$TP), an = "Test", plot_n_samples = TRUE, txt = rownames(x)
+)
 }

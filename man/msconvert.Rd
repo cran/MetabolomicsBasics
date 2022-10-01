@@ -6,8 +6,8 @@
 \usage{
 msconvert(
   files = NULL,
- 
-    msc_exe = "C:\\\\Program Files\\\\ProteoWizard\\\\ProteoWizard 3.0.11856\\\\msconvert.exe",
+  msc_exe =
+    "C:\\\\Program Files\\\\ProteoWizard\\\\ProteoWizard 3.0.11856\\\\msconvert.exe",
   args = c("--filter \\"peakPicking cwt snr=0.01 peakSpace=0.1 msLevel=1\\"",
     "--filter \\"scanTime [0,3600]\\"", "--filter \\"metadataFixer\\"", "--mzML", "--32",
     "--zlib")
@@ -16,18 +16,22 @@ msconvert(
 \arguments{
 \item{files}{A character vector of MS data files (wiff, raw, d, ...).}
 
-\item{msc_exe}{The path to the installed msconvert.exe.}
+\item{msc_exe}{The path to the installed `msconvert.exe`.}
 
-\item{args}{The arguments passed to msconvert on the commandline (see details for documentation).}
+\item{args}{The arguments passed to msconvert on the command line (see details for documentation).}
 }
 \value{
-Only some infomative output to the console. The specified MS data files will be converted to mzML within the same folder.
+Only some informative outputs printed to the console. The specified MS data
+  files will be converted to mzML within the same folder.
 }
 \description{
 \code{msconvert} is calling ProteoWizards MSConvert as a command line tool on Windows.
 }
 \details{
-It is a quick and dodgy function to show how to convert vendor MS data into an open format (mzML).
-You will have to download/install MSConvert prior to usage, and probably adjust the arguments according to your needs. Arguments are documented here \url{http://proteowizard.sourceforge.net/tools/msconvert.html}.
-If you don't know where the msconvert.exe is installed you can check for the correct path using \code{list.files(path="C:/", pattern="^msconvert.exe$", recursive = TRUE)}.
+It is a quick and dodgy function to show how to convert vendor MS data
+  into an open format (mzML). You will have to download/install MSConvert prior
+  to usage, and probably adjust the arguments according to your needs.  Arguments
+  are documented here \url{https://proteowizard.sourceforge.io/tools/msconvert.html}.
+  If you don't know where the msconvert.exe is installed you can check for the correct
+  path using \code{list.files(path="C:/", pattern="^msconvert.exe$", recursive = TRUE)}.
 }

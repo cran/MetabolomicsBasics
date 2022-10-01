@@ -17,13 +17,13 @@ spectra_format_converter(txt = NULL, m_prec = 3, i_prec = 0)
 Matrix with mz and int columns.
 }
 \description{
-\code{spectra_format_converter} will generate a matrix with mz and int out of a text representation of a spectrum.
+\code{spectra_format_converter} will generate a matrix with mz and int
+  columns out of a text representation of a spectrum.
 }
 \details{
-none.
+See examples.
 }
 \examples{
-spectra_format_converter(txt="57.1:100 58.0001:10")
-spectra_format_converter(txt="58.0001:10 57.1:100", m_prec=4)
-
+spectra_format_converter(txt = "57.1:100 58.0001:10")
+spectra_format_converter(txt = "58.0001:10 57.1:100", m_prec = 4)
 }

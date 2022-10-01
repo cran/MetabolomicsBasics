@@ -33,26 +33,32 @@ Depends on \code{output}. Usually the normalized data vector (or matrix).
 \code{RemoveFactorsByANOVA} will remove variance from data using an ANOVA model.
 }
 \details{
-not yet
+See examples.
 }
 \examples{
 # set up sample information
-sam <- data.frame("GT"=gl(4,10),
-                 "TR"=rep(gl(2,5),4),
-                 "Batch"=sample(gl(2,20)),
-                 "Order"=sample(seq(-1,1,length.out=40)))
+sam <- data.frame(
+  "GT" = gl(4, 10),
+  "TR" = rep(gl(2, 5), 4),
+  "Batch" = sample(gl(2, 20)),
+  "Order" = sample(seq(-1, 1, length.out = 40))
+)
+
 # set up artificial measurement data
 set.seed(1)
-m1=c(5,6,2,9)[sam$GT]+c(-2,2)[sam$TR]+c(-3,3)[sam$Batch]+3*sam$Order+rnorm(nrow(sam), sd=0.5)
-m2=c(5,-6,2,4)[sam$GT]+c(-2,2)[sam$TR]-5*sam$Order+rnorm(nrow(sam), sd=0.8)
-dat <- data.frame(m1,m2)
+# specify main effects
+m1 <- c(5, 6, 2, 9)[sam$GT] + c(-2, 2)[sam$TR]
+m2 <- c(5, -6, 2, 4)[sam$GT] + c(-2, 2)[sam$TR]
+# add run order bias and noise
+m1 <- m1 + c(-3, 3)[sam$Batch] + 3 * sam$Order + rnorm(nrow(sam), sd = 0.5)
+m2 <- m2 - 5 * sam$Order + rnorm(nrow(sam), sd = 0.8)
+dat <- data.frame(m1, m2)
 
 # apply function to remove variance
 # full model incorporating all relevant factors defined in sample table
-fmod="GT*TR+Batch+Order"
+fmod <- "GT*TR+Batch+Order"
 # reduced model: factors to be kept from full model; everything elso will be removed from the data
-kmod="GT*TR"
-RemoveFactorsByANOVA(y=dat[,"m1"], sam=sam, fmod=fmod, kmod=kmod, output="anova_y")
-RemoveFactorsByANOVA(y=dat[,"m1"], sam=sam, fmod=fmod, kmod=kmod, output="anova_y_norm")
-
+kmod <- "GT*TR"
+RemoveFactorsByANOVA(y = dat[, "m1"], sam = sam, fmod = fmod, kmod = kmod, output = "anova_y")
+RemoveFactorsByANOVA(y = dat[, "m1"], sam = sam, fmod = fmod, kmod = kmod, output = "anova_y_norm")
 }

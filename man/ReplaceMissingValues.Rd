@@ -14,33 +14,35 @@ ReplaceMissingValues(x, ncomp = 10, silent = FALSE)
 \item{silent}{FALSE, suppress messages setting silent=TRUE.}
 }
 \value{
-Matrix without missing values.
+A matrix of similar dimensions as x without missing values.
 }
 \description{
-\code{ReplaceMissingValues} will replace missing values within a numeric matrix based on a principal component analysis.
+\code{ReplaceMissingValues} will replace missing values within
+  a numeric matrix based on a principal component analysis.
 }
 \details{
-The nipals algorithm is used to basically perform a PCA on the sparse matrix. Missing values are imputed based on the major components observed.
-Please check also the 'impute.nipals' function from mixOmics -- it should basically give the same functionality since the 04/2021 update.
+The `nipals` algorithm is used to basically perform a PCA
+  on the sparse matrix. Missing values are imputed based on the major components
+  observed. Please check also the `impute.nipals` function from mixOmics which
+  should basically give the same functionality since the 04/2021 update.
 }
 \examples{
 # load raw data and sample description
 utils::data(raw, package = "MetabolomicsBasics")
 utils::data(sam, package = "MetabolomicsBasics")
 
-idx <- apply(raw, 2, CheckForOutliers, group=sam$GT, n_sd=5, method="logical")
+idx <- apply(raw, 2, CheckForOutliers, group = sam$GT, n_sd = 5, method = "logical")
 sum(idx) # 215 values would be classified as outlier using a five-sigma band
 old_vals <- raw[idx] # keep outlier values for comparison
 raw_filt <- raw
 raw_filt[idx] <- NA
 raw_means <- apply(raw, 2, function(x) {
- sapply(split(x, sam$GT), mean, na.rm=TRUE)[as.numeric(sam$GT)]
+  sapply(split(x, sam$GT), mean, na.rm = TRUE)[as.numeric(sam$GT)]
 })[idx]
-raw_repl <- ReplaceMissingValues(x=raw_filt)
+raw_repl <- ReplaceMissingValues(x = raw_filt)
 new_vals <- raw_repl[idx]
-par(mfrow=c(2,1))
-breaks <- seq(-0.7,1.3,0.05)
-hist(raw_means-old_vals, breaks=breaks, main="", xlab="Outliers", las=1)
-hist(raw_means-new_vals, breaks=breaks, main="", xlab="Replaced values", las=1)
-
+par(mfrow = c(2, 1))
+breaks <- seq(-0.7, 1.3, 0.05)
+hist(raw_means - old_vals, breaks = breaks, main = "", xlab = "Outliers", las = 1)
+hist(raw_means - new_vals, breaks = breaks, main = "", xlab = "Replaced values", las = 1)
 }

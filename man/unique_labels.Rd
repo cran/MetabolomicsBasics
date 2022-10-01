@@ -15,14 +15,16 @@ unique_labels(sam = NULL, g = NULL)
 Dataframe with group levels names and their color and plotting character specification.
 }
 \description{
-\code{unique_labels} will generate a dataframe with color and plotting character specification out of a sample table definition.
+\code{unique_labels} will generate a dataframe with color and
+  plotting character specification out of a sample table definition.
 }
 \details{
-If a color/symbol specification exists for a sample set containing replicate groups this function will help in retrieving this information per group which is useful in boxplot or legend functions (cf. examples).
+If a color/symbol specification exists for a sample set containing
+  replicate groups this function will help in retrieving this information
+  per group which is useful in boxplot or legend functions (cf. examples).
 }
 \examples{
 utils::data(raw, package = "MetabolomicsBasics")
 utils::data(sam, package = "MetabolomicsBasics")
-unique_labels(sam=sam, g="GT")
-
+unique_labels(sam = sam, g = "GT")
 }

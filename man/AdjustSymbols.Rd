@@ -11,32 +11,46 @@ AdjustSymbols(cols = NULL, pchs = NULL, colorset = NULL, symbolset = NULL)
 
 \item{pchs}{Factor vector or NULL (omitted).}
 
-\item{colorset}{Can be selectively specified here. If NULL set automatically, else can be explicitly provided.}
+\item{colorset}{Color definitions for the factor levels of `cols` (can be omitted to use default values).}
 
-\item{symbolset}{Can be selectively specified here. If NULL upt o 5 nice symbols are selected automatically where background can be colored.}
+\item{symbolset}{Plotting character definitions for the factor levels of `pchs` (can be omitted to use default values).}
 }
 \value{
-data.frame with two columns (cols, pchs). Will be used by several plotting functions automatically.
+Either a vector (if one parameter of `cols` and `pchs` remains NULL), a data frame
+  with columns `cols` and `pchs` (if both are provided and of equal length) or a list of
+  length 2 (if both are provided and of different length). Will be used by several plotting
+  functions of the package internally.
 }
 \description{
-\code{AdjustSymbols} will generate plotting character and color vectors based on experimental factors.
+\code{AdjustSymbols} will generate plotting character and color vectors based
+  on experimental factors.#'
 }
 \details{
-not yet
+Using a fixed color and symbol scheme indicating samples from different groups
+  throughout all figures of a analysis workflow is a reasonable decision. This function
+  allows to specify both and attach it to a sample table for futher use.
 }
 \examples{
+# return color vector
+x <- gl(6, 3)
+y <- as.numeric(x)
+plot(y, bg = AdjustSymbols(cols = x), pch = 21, cex = 2)
+plot(y, bg = AdjustSymbols(cols = y), pch = 21, cex = 2)
+plot(y, bg = AdjustSymbols(cols = x, colorset = 1:6), pch = 21, cex = 2)
+plot(y, pch = AdjustSymbols(pchs = x), cex = 2)
+plot(y, bg = 2, pch = AdjustSymbols(pchs = x, symbolset = 1:6), cex = 2)
+
 # load data and plot using provided color scheme
 utils::data(raw, package = "MetabolomicsBasics")
 utils::data(sam, package = "MetabolomicsBasics")
 head(sam)
-plot(y=raw[,1], x=as.numeric(sam$GT), pch=sam$pchs, bg=sam$cols)
+plot(y = raw[, 1], x = as.numeric(sam$GT), pch = sam$pchs, bg = sam$cols)
 
 # change colors to greyscale
-head(AdjustSymbols(cols=sam$GT, pchs=sam$Origin))
+head(AdjustSymbols(cols = sam$GT, pchs = sam$Origin))
 tmp.set <- grDevices::rainbow(length(levels(sam$GT)))
-head(AdjustSymbols(cols=sam$GT, pchs=sam$Batch, colorset=tmp.set))
-plot(raw[,1]~sam$GT, col=unique_labels(sam=sam, g="GT")[,"cols"])
-sam$cols <- AdjustSymbols(cols=as.numeric(sam$GT))
-plot(raw[,1]~sam$GT, col=unique_labels(sam=sam, g="GT")[,"cols"])
-
+head(AdjustSymbols(cols = sam$GT, pchs = sam$Batch, colorset = tmp.set))
+plot(raw[, 1] ~ sam$GT, col = unique_labels(sam = sam, g = "GT")[, "cols"])
+sam$cols <- AdjustSymbols(cols = as.numeric(sam$GT))
+plot(raw[, 1] ~ sam$GT, col = unique_labels(sam = sam, g = "GT")[, "cols"]) #'
 }
