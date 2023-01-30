@@ -28,8 +28,8 @@ The `nipals` algorithm is used to basically perform a PCA
 }
 \examples{
 # load raw data and sample description
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 
 idx <- apply(raw, 2, CheckForOutliers, group = sam$GT, n_sd = 5, method = "logical")
 sum(idx) # 215 values would be classified as outlier using a five-sigma band

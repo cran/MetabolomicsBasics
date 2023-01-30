@@ -11,8 +11,8 @@
 #' @return A matrix of similar dimensions as x without missing values.
 #' @examples
 #' # load raw data and sample description
-#' utils::data(raw, package = "MetabolomicsBasics")
-#' utils::data(sam, package = "MetabolomicsBasics")
+#' raw <- MetabolomicsBasics::raw
+#' sam <- MetabolomicsBasics::sam
 #'
 # find outliers, store their values and substitute against NA within matrix
 #' idx <- apply(raw, 2, CheckForOutliers, group = sam$GT, n_sd = 5, method = "logical")

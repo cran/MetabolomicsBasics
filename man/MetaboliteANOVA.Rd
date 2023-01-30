@@ -38,8 +38,8 @@ The function is a wrapper for \code{lm} including some sanity checks.
 }
 \examples{
 # load raw data and sample description
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 # compute P-values according to specified ANOVA model (simple and complex)
 head(m1 <- MetaboliteANOVA(dat = raw, sam = sam, model = "GT"))
 head(m2 <- MetaboliteANOVA(dat = raw, sam = sam, model = "GT+Batch+Order+MP"))

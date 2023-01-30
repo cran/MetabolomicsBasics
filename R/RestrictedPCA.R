@@ -19,8 +19,8 @@
 #'   restricted based on an ANOVA result based on \link{MetaboliteANOVA}.
 #' @examples
 #' # load raw data and sample description
-#' utils::data(raw, package = "MetabolomicsBasics")
-#' utils::data(sam, package = "MetabolomicsBasics")
+#' raw <- MetabolomicsBasics::raw
+#' sam <- MetabolomicsBasics::sam
 #' # standard behavior
 #' RestrictedPCA(dat = raw, sam = sam, group.col = "GT")
 #' \dontrun{

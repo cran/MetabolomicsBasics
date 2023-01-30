@@ -5,7 +5,7 @@
 #'   of a sample group. Boxplots allow to quickly access potential differences
 #'   between measurement values of several groups. \code{MBoxplot} can be nicely
 #'   used to generate QC plots for all metabolites prior and after normalization,
-#'   in abolute or relative scale and sorted according to significance.
+#'   in absolute or relative scale and sorted according to significance.
 #' @param pk Colname of raw to plot if \code{pk} is character OR the colnum number if \code{pk} is numeric.
 #' @param raw Plotting data as samples (rows) x metabolites (cols).
 #' @param sam Sample table.

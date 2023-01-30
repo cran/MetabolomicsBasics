@@ -30,12 +30,15 @@
 #' @importFrom stats predict
 #' @importFrom stats as.formula
 #' @export
-ClassificationCV <- function(d = NULL, g = NULL, n = 1, k = 1, rand = F, method = c("svm", "C50", "rpart", "ropls")[1], method.control = list(), silent = FALSE) {
+ClassificationCV <- function(d = NULL, g = NULL, n = 1, k = 1, rand = F, method = c("svm", "C50", "rpart", "ropls"), method.control = list(), silent = FALSE) {
+
+  # ensure that only one of the allowed methods is specified
+  method <- match.arg(method)
 
   # check for ropls to be able to keep it in suggested packages
-  if (!requireNamespace("ropls", quietly = TRUE)) {
+  if (method == "ropls" & !requireNamespace("ropls", quietly = TRUE)) {
     stop("The use of this function requires package 'ropls'. Please ",
-         "install with 'install.packages(\"opls\")'")
+         "install with 'BiocManager::install(\"ropls\")\'")
   }
 
   # warn and substitute in case of missing values

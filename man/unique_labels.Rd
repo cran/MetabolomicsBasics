@@ -24,7 +24,6 @@ If a color/symbol specification exists for a sample set containing
   per group which is useful in boxplot or legend functions (cf. examples).
 }
 \examples{
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+sam <- MetabolomicsBasics::sam
 unique_labels(sam = sam, g = "GT")
 }

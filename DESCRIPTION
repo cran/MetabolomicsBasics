@@ -1,22 +1,24 @@
 Package: MetabolomicsBasics
 Type: Package
 Title: Basic Functions to Investigate Metabolomics Data Matrices
-Version: 1.3
-Date: 2022-09-28
-Authors@R: person("Jan", "Lisec", role = c("aut", "cre"), email = "jan.lisec@bam.de")
-Author: Jan Lisec [aut, cre]
+Version: 1.4
+Date: 2023-01-30
+Authors@R: person("Jan", "Lisec", , "jan.lisec@bam.de", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1220-2286"))
+Maintainer: Jan Lisec <jan.lisec@bam.de>
 Description: A set of functions to investigate raw data from (metabol)omics experiments intended to be used on a raw data matrix, i.e. following peak picking and signal deconvolution. Functions can be used to normalize data, detect biomarkers and perform sample classification. A detailed description of best practice usage may be found in the publication <https://link.springer.com/protocol/10.1007/978-1-4939-7819-9_20>.
 URL: https://link.springer.com/protocol/10.1007/978-1-4939-7819-9_20
 License: GPL-3
 biocViews:
 LazyData: true
+Language: en-US
 Depends: R(>= 2.10.0)
-Imports: C50, caret, e1071, mixOmics, pcaMethods, plyr, rpart, rlang
+Imports: C50, caret, e1071, InterpretMSSpectrum, mixOmics, pcaMethods,
+        plyr, Rdisop, rpart, rlang, webchem
 Suggests: ropls, xcms
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2022-09-30 14:37:57 UTC; jlisec
-Maintainer: Jan Lisec <jan.lisec@bam.de>
+Packaged: 2023-01-30 11:47:34 UTC; jlisec
+Author: Jan Lisec [aut, cre] (<https://orcid.org/0000-0003-1220-2286>)
 Repository: CRAN
-Date/Publication: 2022-10-01 07:00:08 UTC
+Date/Publication: 2023-01-30 12:40:02 UTC

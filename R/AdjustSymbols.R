@@ -3,8 +3,8 @@
 #'   on experimental factors.#'
 #' @details Using a fixed color and symbol scheme indicating samples from different groups
 #'   throughout all figures of a analysis workflow is a reasonable decision. This function
-#'   allows to specify both and attach it to a sample table for futher use.
-#' @param cols Factor (color output) or numeric (greyscale output) vector or NULL (omitted).
+#'   allows to specify both and attach it to a sample table for further use.
+#' @param cols Factor (color output) or numeric (grey-scale output) vector or NULL (omitted).
 #' @param pchs Factor vector or NULL (omitted).
 #' @param colorset Color definitions for the factor levels of `cols` (can be omitted to use default values).
 #' @param symbolset Plotting character definitions for the factor levels of `pchs` (can be omitted to use default values).
@@ -23,8 +23,8 @@
 #' plot(y, bg = 2, pch = AdjustSymbols(pchs = x, symbolset = 1:6), cex = 2)
 #'
 #' # load data and plot using provided color scheme
-#' utils::data(raw, package = "MetabolomicsBasics")
-#' utils::data(sam, package = "MetabolomicsBasics")
+#' raw <- MetabolomicsBasics::raw
+#' sam <- MetabolomicsBasics::sam
 #' head(sam)
 #' plot(y = raw[, 1], x = as.numeric(sam$GT), pch = sam$pchs, bg = sam$cols)
 #'

@@ -4,16 +4,16 @@
 #' @details See examples.
 #' @param pca_res A pcaRes object from the pcaMethods package.
 #' @param sam Sample table including columns 'cols', 'pchs' (for data point color and shape) and 'ID' (to label data points) 'Group' (to split cols for legend) 'MP' (to adjust point size).
-#' @param g Can be a factor vector of length=nrow(sam) and will influence legend and medsd.
+#' @param g Can be a factor vector of length=nrow(sam) and will influence legend and 'medsd'.
 #' @param medsd Calculate mean and sd for groups and overlay PCA plot with this information.
-#' @param text.col Datapoints may be overlaid by textual information, e.g. sample ID and 'text.col' specifies the colummn name of sam to use for this purpose.
+#' @param text.col Data points may be overlaid by textual information, e.g. sample ID and 'text.col' specifies the column name of 'sam' to use for this purpose.
 #' @param legend.x Position of a legend or NULL to omit it.
 #' @param comm Will print commentary text to the bottom right of the plot (can be a character vector).
 #' @return A vector fo similar length as input but with various name components removed.
 #' @examples
 #' # load raw data and sample description
-#' utils::data(raw, package = "MetabolomicsBasics")
-#' utils::data(sam, package = "MetabolomicsBasics")
+#' raw <- MetabolomicsBasics::raw
+#' sam <- MetabolomicsBasics::sam
 #'
 #' # calculate pca Result using pcaMethods and plot
 #' pca_res <- pcaMethods::pca(raw, method = "rnipals", scale = c("none", "pareto", "uv")[2])

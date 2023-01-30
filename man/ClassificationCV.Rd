@@ -10,7 +10,7 @@ ClassificationCV(
   n = 1,
   k = 1,
   rand = F,
-  method = c("svm", "C50", "rpart", "ropls")[1],
+  method = c("svm", "C50", "rpart", "ropls"),
   method.control = list(),
   silent = FALSE
 )

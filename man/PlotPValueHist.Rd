@@ -39,8 +39,8 @@ See examples.
 }
 \examples{
 # load raw data and sample description
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 
 # compute P-values according to specified ANOVA model (simple and complex)
 head(pvals <- MetaboliteANOVA(dat = raw, sam = sam, model = "GT+Batch+Order"))
@@ -51,7 +51,7 @@ PlotPValueHist(out = pvals, method = "none", yl = "Number of Genes")
 
 # color bars (by chance or according to a metabolite group)
 PlotPValueHist(out = pvals, frac.col = rep(2:3, length.out = nrow(pvals)))
-utils::data(met, package = "MetabolomicsBasics")
+met <- MetabolomicsBasics::met
 met$Name[grep("ine$", met$Name)]
 PlotPValueHist(out = pvals, frac.col = 2 + 1:nrow(pvals) \%in\% grep("ine$", met$Name))
 }

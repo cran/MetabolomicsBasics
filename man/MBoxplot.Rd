@@ -56,7 +56,7 @@ Usually metabolomics experiments are conducted on multiple replicates
   of a sample group. Boxplots allow to quickly access potential differences
   between measurement values of several groups. \code{MBoxplot} can be nicely
   used to generate QC plots for all metabolites prior and after normalization,
-  in abolute or relative scale and sorted according to significance.
+  in absolute or relative scale and sorted according to significance.
 }
 \examples{
 x <- data.frame("y" = runif(36), "GT" = gl(3, 12), "TP" = factor(rep(rep(1:3, each = 4), 3)))

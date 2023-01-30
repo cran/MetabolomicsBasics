@@ -15,18 +15,39 @@
 #' @param method Currently \code{svm}, \code{ropls} and decision tree methods (\code{C50} and \code{rpart}) are supported.
 #' @param train Either NULL (random permutations) or an index vector for a training subset out of \code{g}.
 #' @param method.control A list of parameters, forwarded to the selected methods function.
-#' @param silent Logical. Set TRUE to supress progress bar and warnings.
+#' @param silent Logical. Set TRUE to suppress progress bar and warnings.
 #' @return #' Classification results as list.
 #' @examples
-#' utils::data(raw, package = "MetabolomicsBasics")
-#' utils::data(sam, package = "MetabolomicsBasics")
+#' raw <- MetabolomicsBasics::raw
+#' sam <- MetabolomicsBasics::sam
 #' gr <- sam$Origin
 #' # establish a basic rpart model and render a fancy plot including the accuracy
+#' \donttest{
 #' class_res <- ClassificationWrapper(d = raw, g = gr, method = c("rpart", "svm"), n = 3, k = 3)
 #' ClassificationHistogram(class_res)
+#' }
 #' @export
-ClassificationWrapper <- function(d = NULL, g = NULL, n = 100, n_rand = 1, k = 5, method = c("C50", "svm", "rpart", "ropls"), train = NULL, method.control = list(), silent = FALSE) {
+ClassificationWrapper <- function(
+    d = NULL,
+    g = NULL,
+    n = 100,
+    n_rand = 1,
+    k = 5,
+    method = c("C50", "svm", "rpart", "ropls"),
+    train = NULL,
+    method.control = list(),
+    silent = FALSE)
+{
+  # internal list of implemented methods
   implemented_methods <- c("C50", "svm", "rpart", "ropls")
+
+  method <- match.arg(method, several.ok = TRUE)
+
+  # check for ropls to be able to keep it in suggested packages
+  if (any(method == "ropls") & !requireNamespace("ropls", quietly = TRUE)) {
+    stop("The use of this function requires package 'ropls'. Please ",
+         "install with 'BiocManager::install(\"ropls\")\'")
+  }
 
   # wrapper function only meaningful if replications are used
   stopifnot(n >= 2, !is.null(d), !is.null(g), n >= n_rand)

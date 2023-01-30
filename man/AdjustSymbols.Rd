@@ -7,7 +7,7 @@
 AdjustSymbols(cols = NULL, pchs = NULL, colorset = NULL, symbolset = NULL)
 }
 \arguments{
-\item{cols}{Factor (color output) or numeric (greyscale output) vector or NULL (omitted).}
+\item{cols}{Factor (color output) or numeric (grey-scale output) vector or NULL (omitted).}
 
 \item{pchs}{Factor vector or NULL (omitted).}
 
@@ -28,7 +28,7 @@ Either a vector (if one parameter of `cols` and `pchs` remains NULL), a data fra
 \details{
 Using a fixed color and symbol scheme indicating samples from different groups
   throughout all figures of a analysis workflow is a reasonable decision. This function
-  allows to specify both and attach it to a sample table for futher use.
+  allows to specify both and attach it to a sample table for further use.
 }
 \examples{
 # return color vector
@@ -41,8 +41,8 @@ plot(y, pch = AdjustSymbols(pchs = x), cex = 2)
 plot(y, bg = 2, pch = AdjustSymbols(pchs = x, symbolset = 1:6), cex = 2)
 
 # load data and plot using provided color scheme
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 head(sam)
 plot(y = raw[, 1], x = as.numeric(sam$GT), pch = sam$pchs, bg = sam$cols)
 

@@ -54,8 +54,8 @@ graphics::plot(x = as.numeric(group), y = x, pch = 21, cex = 3,
 graphics::par(mfrow = c(1, 1))
 
 # load raw data and sample description
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 
 # no missing data in this matrix
 all(is.finite(raw))

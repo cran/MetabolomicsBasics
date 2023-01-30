@@ -19,11 +19,11 @@ PlotMetabolitePCA(
 
 \item{sam}{Sample table including columns 'cols', 'pchs' (for data point color and shape) and 'ID' (to label data points) 'Group' (to split cols for legend) 'MP' (to adjust point size).}
 
-\item{g}{Can be a factor vector of length=nrow(sam) and will influence legend and medsd.}
+\item{g}{Can be a factor vector of length=nrow(sam) and will influence legend and 'medsd'.}
 
 \item{medsd}{Calculate mean and sd for groups and overlay PCA plot with this information.}
 
-\item{text.col}{Datapoints may be overlaid by textual information, e.g. sample ID and 'text.col' specifies the colummn name of sam to use for this purpose.}
+\item{text.col}{Data points may be overlaid by textual information, e.g. sample ID and 'text.col' specifies the column name of 'sam' to use for this purpose.}
 
 \item{legend.x}{Position of a legend or NULL to omit it.}
 
@@ -41,8 +41,8 @@ See examples.
 }
 \examples{
 # load raw data and sample description
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 
 # calculate pca Result using pcaMethods and plot
 pca_res <- pcaMethods::pca(raw, method = "rnipals", scale = c("none", "pareto", "uv")[2])

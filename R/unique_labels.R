@@ -8,8 +8,7 @@
 #' @param g Either column name from sam containing factor column or factor of same length as sam.
 #' @return Dataframe with group levels names and their color and plotting character specification.
 #' @examples
-#' utils::data(raw, package = "MetabolomicsBasics")
-#' utils::data(sam, package = "MetabolomicsBasics")
+#' sam <- MetabolomicsBasics::sam
 #' unique_labels(sam = sam, g = "GT")
 #' @export
 unique_labels <- function(sam = NULL, g = NULL) {

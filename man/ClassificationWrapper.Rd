@@ -33,7 +33,7 @@ ClassificationWrapper(
 
 \item{method.control}{A list of parameters, forwarded to the selected methods function.}
 
-\item{silent}{Logical. Set TRUE to supress progress bar and warnings.}
+\item{silent}{Logical. Set TRUE to suppress progress bar and warnings.}
 }
 \value{
 #' Classification results as list.
@@ -51,10 +51,12 @@ Parameter `n_rand` will influence how permutation testing for robustness
   for observed data but on several randomizations.
 }
 \examples{
-utils::data(raw, package = "MetabolomicsBasics")
-utils::data(sam, package = "MetabolomicsBasics")
+raw <- MetabolomicsBasics::raw
+sam <- MetabolomicsBasics::sam
 gr <- sam$Origin
 # establish a basic rpart model and render a fancy plot including the accuracy
+\donttest{
 class_res <- ClassificationWrapper(d = raw, g = gr, method = c("rpart", "svm"), n = 3, k = 3)
 ClassificationHistogram(class_res)
+}
 }
