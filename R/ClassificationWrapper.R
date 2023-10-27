@@ -44,10 +44,7 @@ ClassificationWrapper <- function(
   method <- match.arg(method, several.ok = TRUE)
 
   # check for ropls to be able to keep it in suggested packages
-  if (any(method == "ropls") & !requireNamespace("ropls", quietly = TRUE)) {
-    stop("The use of this function requires package 'ropls'. Please ",
-         "install with 'BiocManager::install(\"ropls\")\'")
-  }
+  if (any(method == "ropls")) { verify_suggested("ropls") }
 
   # wrapper function only meaningful if replications are used
   stopifnot(n >= 2, !is.null(d), !is.null(g), n >= n_rand)

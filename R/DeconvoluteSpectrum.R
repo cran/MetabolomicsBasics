@@ -133,10 +133,7 @@ DeconvoluteSpectrum <- function(dat = NULL, rt = NULL, rt_dev = 2, mz1 = NULL, m
   }
 
   # check for xcms to be able to keep it in suggested packages
-  if (!requireNamespace("xcms", quietly = TRUE)) {
-    stop("The use of this function requires package 'xcms'. Please ",
-         "install with 'Biobase::install(\"xcms\")'")
-  }
+  verify_suggested("xcms")
 
   # convert xcmsSet to list of XCMSraw's
   if (inherits(dat, "xcmsSet")) {

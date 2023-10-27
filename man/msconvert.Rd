@@ -30,7 +30,7 @@ Only some informative outputs printed to the console. The specified MS data
 \details{
 It is a quick and dodgy function to show how to convert vendor MS data
   into an open format (mzML). You will have to download/install MSConvert prior
-  to usage, and probably adjust the arguments according to your needs.  Arguments
+  to usage, and probably adjust the arguments according to your needs. Arguments
   are documented here \url{https://proteowizard.sourceforge.io/tools/msconvert.html}.
   If you don't know where the msconvert.exe is installed you can check for the correct
   path using \code{list.files(path="C:/", pattern="^msconvert.exe$", recursive = TRUE)}.

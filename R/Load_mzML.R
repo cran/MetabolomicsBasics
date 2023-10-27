@@ -26,11 +26,10 @@
 #' @keywords internal
 #' @noRd
 Load_mzML <- function(file_in = NULL, removePattern = T, removeStart = NA, removeEnd = NA, correct_missing_scans = FALSE, tc = 60, export = FALSE, silent = FALSE, profstep = 0) {
+
   # check for xcms to be able to keep it in suggested packages
-  if (!requireNamespace("xcms", quietly = TRUE)) {
-    stop("The use of this function requires package 'xcms'. Please ",
-         "install with 'Biobase::install(\"xcms\")'")
-  }
+  verify_suggested("xcms")
+
   # Helper function
   removeScans <- function(x = NULL, s = NULL) {
     scannum <- as.integer(diff(c(x@scanindex, length(x@env$mz))))

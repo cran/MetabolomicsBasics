@@ -36,10 +36,7 @@ ClassificationCV <- function(d = NULL, g = NULL, n = 1, k = 1, rand = F, method 
   method <- match.arg(method)
 
   # check for ropls to be able to keep it in suggested packages
-  if (method == "ropls" & !requireNamespace("ropls", quietly = TRUE)) {
-    stop("The use of this function requires package 'ropls'. Please ",
-         "install with 'BiocManager::install(\"ropls\")\'")
-  }
+  if (method == "ropls") { verify_suggested("ropls") }
 
   # warn and substitute in case of missing values
   if (method %in% c("C50", "svm") && !all(is.finite(d))) {

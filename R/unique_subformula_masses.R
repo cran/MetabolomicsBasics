@@ -20,8 +20,7 @@
 #' tmp[abs(tmp-mz)<0.5]
 #' tmp2[abs(tmp2-mz)<0.5]
 #' @export
-#' @importFrom InterpretMSSpectrum CountChemicalElements PlausibleFormula
-#' @importFrom Rdisop getMolecule
+#' @importFrom InterpretMSSpectrum CountChemicalElements get_exactmass PlausibleFormula
 unique_subformula_masses <- function(fml, names=TRUE, check_validity=FALSE) {
   ele <- InterpretMSSpectrum::CountChemicalElements(x=fml)
   n <- length(ele)
@@ -31,7 +30,7 @@ unique_subformula_masses <- function(fml, names=TRUE, check_validity=FALSE) {
   }
   # remove all zero row
   idx <- idx[-1,]
-  m <- sapply(names(ele), function(x) { Rdisop::getMolecule(x)$exact })
+  m <- InterpretMSSpectrum::get_exactmass(names(ele))
   out <- apply(idx, 1, function(fac) {
     sum(m*fac)
   })

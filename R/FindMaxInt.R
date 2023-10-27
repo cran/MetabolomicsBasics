@@ -24,10 +24,7 @@
 FindMaxInt <- function(dat = NULL, mz = NULL, rt = NULL, rt_dev = 5, mz_dev = 0.01, test_plot = FALSE, mfrow = NULL, skip_plots = NULL, ylim = c(100, 100), col = NULL, ids = NULL, ann = c("RT", "Scan", "dmz")[1], output = "maxint") {
 
   # check for xcms to be able to keep it in suggested packages
-  if (!requireNamespace("xcms", quietly = TRUE)) {
-    stop("The use of this function requires package 'xcms'. Please ",
-         "install with 'Biobase::install(\"xcms\")'")
-  }
+  verify_suggested("xcms")
 
   if (!inherits(dat, c("xcmsSet", "xcmsEIC", "list"))) {
     dat <- list(dat)

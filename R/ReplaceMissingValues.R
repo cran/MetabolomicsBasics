@@ -31,8 +31,9 @@
 #' hist(raw_means - new_vals, breaks = breaks, main = "", xlab = "Replaced values", las = 1)
 #' @export
 #' @importFrom utils flush.console
-#' @importFrom mixOmics nipals
 ReplaceMissingValues <- function(x, ncomp = 10, silent = FALSE) {
+  # use packages conditional
+  verify_suggested("mixOmics")
   if (!silent) cat(paste("\n...replacing missing values in a data matrix of m x n = ", nrow(x), " x ", ncol(x), "(=", prod(dim(x)), ")", sep = ""))
   flush.console()
   # !![20210416] mixOmics changed the code of nipals removing the parameter 'reconst'
