@@ -14,14 +14,20 @@ unique_subformula_masses(fml, names = TRUE, check_validity = FALSE)
 \item{check_validity}{Filter for chemically valid formulas.}
 }
 \value{
-Numeric vector.
+A named numeric vector. The names are the sub formulas for the calculated
+  exact masses given as numeric.
 }
 \description{
 \code{unique_subformula_masses} will generate a numeric vector of
   potential sub formula masses regarding a chemical formula as input.
 }
 \details{
-tbd.
+In mass spectrometry precursor masses are often fragmented and these
+  fragments are recorded as MS^2 spectra. A frequent task is then to compute
+  potential chemical formulas for the obtained MS^2 masses. The function
+  \code{unique_subformula_masses} follows the reverse approach. It allows to
+  calculate all masses that could be potential breakdown products of a precursor
+  formula
 }
 \examples{
 # specify a formula and calculate all potential combinatorial masses

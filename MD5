@@ -1,5 +1,5 @@
-6b0cfc903ba2bd25fd273ca0bef784ff *DESCRIPTION
-242373d76b430e329f5e781e6f0769e3 *NAMESPACE
+b641c691c718728d3970424a5dbaf860 *DESCRIPTION
+24de9bb36d190fc49ef932a7b2c1d906 *NAMESPACE
 bbac67be4df4e46c2fa111d4a82c540a *R/AdjustSymbols.R
 00d2e4147576aeeb573dbc5918340a1c *R/CheckForOutliers.R
 1aeded88e40685601d8ffc15bf32c8c8 *R/ClassificationCV.R
@@ -13,6 +13,7 @@ b3ef4ee8aaa089126913f1a203e15040 *R/MBoxplot.R
 a5422c5a8643270441574babf3cf01d1 *R/MetabolomicsBasics-data.R
 5d59d764010cf4576261bfff6cf4895a *R/PlotMetabolitePCA.R
 8fba86a1e6feff9b0d3206a788cc44b7 *R/PlotPValueHist.R
+088dd326a1edf3a144844a59eb721904 *R/PolarPlot.R
 3c7483335f76d27a73e6b8e0aad075dd *R/RemoveFactorsByANOVA.R
 23d1db4a1fdd53a3422353eb9270774d *R/ReplaceMissingValues.R
 7b482c32d99a5e0a2e8ae6bb803d5a40 *R/RestrictedPCA.R
@@ -21,9 +22,9 @@ ccde8ea58135a0006ee3b2d353a6a422 *R/msconvert.R
 8eb5fac04d1dd677e59476b59a6afb79 *R/spectra_format_converter.R
 f16957520ab8779c2289c49f367bbb5b *R/sumformula_from_CAS.R
 9afe71f9587f34fa68f329970730b5b4 *R/unique_labels.R
-3ce1ca2b0147d8dea4fb7791882d1d5f *R/unique_subformula_masses.R
+e9e7adc5fc954a07a321aac961f7e4d7 *R/unique_subformula_masses.R
 cf6e3725ea7af0d8fb64717964c6f4f8 *R/verify_suggested.R
-71a7f98736b7d21bc60a853cde711b07 *README.md
+98469e690455a93bfc140fd7aed2a0b6 *README.md
 3196eb9600f19b57d8606833a661c3ef *data/met.rda
 01b2843f66145389d4277b20d11dc0bf *data/raw.rda
 4801be65cc3361b6c318f42868da9775 *data/sam.rda
@@ -37,10 +38,13 @@ a1b2ec2498606c1d8af8d2d7f318cba1 *man/ClassificationHistogram.Rd
 7ca10e068cd5b390ecee03fa5bfc281f *man/MetaboliteANOVA.Rd
 007093e798b3d7268fb858afa93cae4c *man/PlotMetabolitePCA.Rd
 dbd7bc8b455a88ed67e6e0e3c4df0c26 *man/PlotPValueHist.Rd
+364beb58526f7efe9fbc3953ffb4fdd3 *man/PolarCoordHeterPlot.Rd
 bd333ffa684b58c94d0a6e36612aa7f3 *man/RemoveFactorsByANOVA.Rd
 2f92d371d88acbcb62ed382fa4b0a6dd *man/ReplaceMissingValues.Rd
 9d41f05b53255b1b2c1f684064d4140a *man/RestrictedPCA.Rd
 a7704fefe36f9671f1145d2f62d71aa1 *man/figures/README-example-1.png
+1af894955e902f074c2a0b2a8066babc *man/figures/README-example1-1.png
+f299436572979ea6c74e6aed8b7494cb *man/figures/README-example2-1.png
 3827e9fe9859918edbc75583f47e9278 *man/find_boundaries.Rd
 c1c100189f942b7ab387b561b48d4df6 *man/met.Rd
 8e1e64d55f68f08c09215154fad257d0 *man/msconvert.Rd
@@ -49,4 +53,4 @@ c1c100189f942b7ab387b561b48d4df6 *man/met.Rd
 a608a379fc2e8e070781de2af08afdc0 *man/spectra_format_converter.Rd
 86c1f11ec832f256feda19aa1d0fd8fc *man/sumformula_from_CAS.Rd
 47cef1ded56bea28bbff2de76ca5f125 *man/unique_labels.Rd
-d3dc47b4b18dfe140f8b6cd99591d1a7 *man/unique_subformula_masses.Rd
+188bde073d40b474e5ca91c5bacbd5a3 *man/unique_subformula_masses.Rd

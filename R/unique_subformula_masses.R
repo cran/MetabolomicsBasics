@@ -1,11 +1,17 @@
 #' @title unique_subformula_masses
 #' @description \code{unique_subformula_masses} will generate a numeric vector of
 #'   potential sub formula masses regarding a chemical formula as input.
-#' @details tbd.
+#' @details In mass spectrometry precursor masses are often fragmented and these
+#'   fragments are recorded as MS^2 spectra. A frequent task is then to compute
+#'   potential chemical formulas for the obtained MS^2 masses. The function
+#'   \code{unique_subformula_masses} follows the reverse approach. It allows to
+#'   calculate all masses that could be potential breakdown products of a precursor
+#'   formula
 #' @param fml Chemical formula.
 #' @param names Return respective sub formulas as vector names.
 #' @param check_validity Filter for chemically valid formulas.
-#' @return Numeric vector.
+#' @return A named numeric vector. The names are the sub formulas for the calculated
+#'   exact masses given as numeric.
 #' @examples
 #' # specify a formula and calculate all potential combinatorial masses
 #' fml <- c("C6H12O6", "C11H16NO4PS", "C24H51O4P")[1]
@@ -20,7 +26,7 @@
 #' tmp[abs(tmp-mz)<0.5]
 #' tmp2[abs(tmp2-mz)<0.5]
 #' @export
-#' @importFrom InterpretMSSpectrum CountChemicalElements get_exactmass PlausibleFormula
+#' @importFrom InterpretMSSpectrum CountChemicalElements get_exactmass
 unique_subformula_masses <- function(fml, names=TRUE, check_validity=FALSE) {
   ele <- InterpretMSSpectrum::CountChemicalElements(x=fml)
   n <- length(ele)
@@ -40,8 +46,8 @@ unique_subformula_masses <- function(fml, names=TRUE, check_validity=FALSE) {
     })
   }
   if (names) names(out) <- sf
-  if (check_validity) {
-    test <- sapply(sf, InterpretMSSpectrum::PlausibleFormula)
+  if (check_validity & is.function(try({InterpretMSSpectrum:::PlausibleFormula}, silent=TRUE))) {
+    test <- sapply(sf, InterpretMSSpectrum:::PlausibleFormula)
     out <- out[test]
   }
   # if (!is.null(prec) && is.numeric(prec)) {
