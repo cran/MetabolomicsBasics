@@ -23,8 +23,9 @@ A matrix of similar dimensions as x without missing values.
 \details{
 The `nipals` algorithm is used to basically perform a PCA
   on the sparse matrix. Missing values are imputed based on the major components
-  observed. Please check also the `impute.nipals` function from mixOmics which
-  should basically give the same functionality since the 04/2021 update.
+  observed. Please check also the `impute.nipals()` function from mixOmics which
+  should basically give the same functionality since the 04/2021 update. This
+  functions uses `mixOmics::nipals()`
 }
 \examples{
 # load raw data and sample description

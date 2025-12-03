@@ -67,7 +67,7 @@ MetaboliteANOVA <- function(dat = NULL, sam = NULL, model = NULL, method = "none
         sum(is.finite(unlist(x))) == 0
       }))), collapse = "; ")
       if (!silent) {
-        cat(paste("\nReturn NAs for", colnames(ydf)[j], "(Incomplete levels:", incomplete_levels, ")\n"))
+        message(paste("Return NAs for", colnames(ydf)[j], "(Incomplete levels:", incomplete_levels, ")"))
       }
       pval <- rep(NA, length(fac_names))
     } else {

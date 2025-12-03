@@ -3,8 +3,9 @@
 #'   a numeric matrix based on a principal component analysis.
 #' @details The `nipals` algorithm is used to basically perform a PCA
 #'   on the sparse matrix. Missing values are imputed based on the major components
-#'   observed. Please check also the `impute.nipals` function from mixOmics which
-#'   should basically give the same functionality since the 04/2021 update.
+#'   observed. Please check also the `impute.nipals()` function from mixOmics which
+#'   should basically give the same functionality since the 04/2021 update. This
+#'   functions uses `mixOmics::nipals()`
 #' @param x Numeric matrix.
 #' @param ncomp Number of components to be used.
 #' @param silent FALSE, suppress messages setting silent=TRUE.
@@ -33,7 +34,7 @@
 #' @importFrom utils flush.console
 ReplaceMissingValues <- function(x, ncomp = 10, silent = FALSE) {
   # use packages conditional
-  verify_suggested("mixOmics")
+  if (!verify_suggested("mixOmics")) return(x)
   if (!silent) cat(paste("\n...replacing missing values in a data matrix of m x n = ", nrow(x), " x ", ncol(x), "(=", prod(dim(x)), ")", sep = ""))
   flush.console()
   # !![20210416] mixOmics changed the code of nipals removing the parameter 'reconst'

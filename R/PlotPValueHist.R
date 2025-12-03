@@ -97,7 +97,7 @@ PlotPValueHist <- function(out = NULL, method = "BH", xl = "ANOVA P-values", yl 
       xright = tmp.seq[-1][filt],
       ytop = a[filt]
     )
-    graphics::axis(1, at = axTicks(1)[seq(1, length(axTicks(1)))], tick = F, labels = FillExpressionVector(axTicks(1)[seq(1, length(axTicks(1)))]))
+    graphics::axis(1, at = axTicks(1)[seq(1, length(axTicks(1)))], tick = F, labels = FillExpressionVector(gsub("-", "\u2212", axTicks(1))[seq(1, length(axTicks(1)))]))
     graphics::axis(1, at = axTicks(1), labels = FALSE)
     graphics::axis(2, las = 2)
   }

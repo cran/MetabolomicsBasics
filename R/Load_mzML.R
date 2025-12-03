@@ -52,8 +52,8 @@ Load_mzML <- function(file_in = NULL, removePattern = T, removeStart = NA, remov
   for (i in 1:length(out)) {
     if (file.exists(file_in[i])) {
       # import File and set scans to be removed to NULL
-      if (!silent) cat(paste("\nProcessing File", file_in[i]))
-      tmp <- xcms::xcmsRaw(file = file_in[i], profstep = profstep)
+      if (!silent) message("Processing File ", file_in[i])
+      tmp <- xcms::xcmsRaw(filename = file_in[i], profstep = profstep)
       s <- NULL
 
       # Establish filtering due to pattern (to e.g. remove BroadBand MS2 use: c(T,F))
@@ -87,13 +87,13 @@ Load_mzML <- function(file_in = NULL, removePattern = T, removeStart = NA, remov
       if (export) xcms::write.mzdata(tmp, gsub(paste0(tools::file_ext(file_in), "$"), "mzData", file_in[i]))
       out[[i]] <- tmp
     } else {
-      if (!silent) cat(paste("\nFile", file_in[i], "not found..."))
+      if (!silent) message("File ", file_in[i], " not found...")
       tmp <- NA
       attr(tmp, "file_in") <- file_in[i]
       out[[i]] <- tmp
     }
   }
-  if (!silent) cat("\nFinished...\n\n")
+  if (!silent) message("Finished...")
   # return as list if many or unlisted if single
   if (length(out) == 1) {
     return(out[[1]])

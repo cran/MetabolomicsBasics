@@ -53,7 +53,10 @@ PlotMetabolitePCA <- function(pca_res = NULL, sam = NULL, g = NULL, medsd = FALS
   # compute equal distance limits for x and y-axis
   tmp.lim <- range(pca_res@scores[, 1:2])
   tmp.lim <- tmp.lim + c(-1, 1) * 0.04 * diff(tmp.lim)
-  graphics::plot(pca_res@scores, las = 1, xlim = tmp.lim, ylim = tmp.lim, ann = F, type = "n")
+  graphics::plot(pca_res@scores, las = 1, xlim = tmp.lim, ylim = tmp.lim, ann = F, type = "n", axes=FALSE)
+  graphics::axis(side = 1, at = axTicks(1), labels = gsub("-", "\u2212", axTicks(1)))
+  graphics::axis(side = 2, at = axTicks(2), labels = gsub("-", "\u2212", axTicks(2)))
+  graphics::box()
   graphics::title(xlab = tmp.lab[1], ylab = tmp.lab[2], line = 2.5)
   # scale data points according to sam$MP if present or set to 2
   if ("MP" %in% colnames(sam)) {
